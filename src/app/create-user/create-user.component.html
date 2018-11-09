@@ -1,0 +1,93 @@
+<div class="container-fluid padding d-flex justify-content-center">
+  <div class="row padding col-xs-16 col-sm-10 col-md-10 d-flex justify-content-center center-container">
+
+    <div class="row welcome text-center">
+      <div class="col-12">
+        <h1 class="display-4">Opret Bruger</h1>
+      </div>
+      <hr class="title-seperator" style="width: 95%;">
+    </div>
+
+    <div class="container-fluid padding d-flex justify-content-center">
+      <div class="container-fluid padding">
+        <div class="row padding">
+          <div class="col-lg-6">
+
+            <form>
+              <div class="form-group">
+                <label for="email-details">Navn</label>
+                <input [(ngModel)]="newUser.name" name="nameInput" type="text" class="form-control" id="name-create"
+                  placeholder="Navn" (ngModelChange)="checkInputFields($event)">
+              </div>
+
+              <div class="form-group">
+                <label for="email-details">Email</label>
+                <input [(ngModel)]="newUser.email" name="mailInput" type="email" class="form-control" id="email-create"
+                  placeholder="Email" (ngModelChange)="checkInputFields($event)">
+                <input [(ngModel)]="newUser.emailRepeat" name="mailReInput" type="email" class="form-control" id="emailRe-create"
+                  placeholder="Gentag Email" style="margin-top: 5px;" (ngModelChange)="checkInputFields($event)">
+              </div>
+            </form>
+
+          </div>
+          <div class="col-lg-6">
+
+            <form>
+              <div class="form-group">
+                <label for="email-details">Telefon</label>
+                <input [(ngModel)]="newUser.phone" name="phoneInput" type="text" class="form-control" id="phone-create"
+                  placeholder="Telefon" (ngModelChange)="checkInputFields($event)">
+              </div>
+              <div class="form-group">
+                <label for="email-details">Kodeord
+                  <div class="material-switch place-inline" style="margin-left: 10px;">
+                    <input id="someSwitchOptionDefault" type="checkbox" (click)="hideShowPassword()"/>
+                    <label for="someSwitchOptionDefault" class="label-default"></label>
+                  </div>
+                </label>
+                <input [(ngModel)]="newUser.password" name="passInput" type="password" class="form-control" id="pass-create"
+                  placeholder="Kodeord" (ngModelChange)="checkInputFields($event)">
+                <input [(ngModel)]="newUser.passwordRepeat" name="passReInput" type="password" class="form-control" id="passRe-create"
+                  placeholder="Gentag Kodeord" style="margin-top: 5px;" (ngModelChange)="checkInputFields($event)">
+              </div>
+
+              <div class="form-group">
+                <div class="btn-group float-right mt-2" role="group">
+                  <button [disabled]="disabled" (click)="checkFieldsToCreateUser()" type="submit" class="btn btn-success btn-md">
+                    <i class="material-icons">person_add</i> Opret
+                  </button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+          <div class="container-fluid d-flex justify-content-center">
+            <div *ngIf="error == 'SUCCESS'" class="alert alert-success" style="margin-top: 20px;">
+              <strong>Success!</strong> Brugeren er nu oprettet
+            </div>
+            <div *ngIf="error == 'INPUT_MISSING'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Mangler input
+            </div>
+            <div *ngIf="error == 'EMAIL_WRONG'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Email er ikke de samme
+            </div>
+            <div *ngIf="error == 'PASS_WRONG'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Kodeord er ikke de samme
+            </div>
+            <div *ngIf="error == 'DB_ERROR'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Der skete en fejl, prøv igen
+            </div>
+            <div *ngIf="error == 'EMAIL_EXIST'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Email adressen eksistere allerede i vores system
+            </div>
+            <div *ngIf="error == 'LICENSE_ERROR'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Du har oprettet {{ user.numberOfUsers }} ud af {{ user.licenseQuantity }} brugere. Opgrader license for flere brugere.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

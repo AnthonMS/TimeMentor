@@ -1,0 +1,13 @@
+/*@import url('superuser-panel.component.scss');*/
+
+.columnStretch {
+    min-width: 150px;
+}
+
+.inline {
+    display: inline;
+}
+
+.green-bg {
+    background-color: #c7fac7;
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="f78eeef068eb7eeed07ecc952fa7ca2672ca7706" datatype="html">
+        <source>features works!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/features/features.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="92eee6be6de0b11c924e3ab27db30257159c0a7c" datatype="html">
+        <source>Home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">A description</note>
+      </trans-unit>
+      <trans-unit id="e2aaf4d14e1bb493acacff7daa9bff941c49c7e8" datatype="html">
+        <source>home works!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description"> description</note>
+        <note priority="1" from="meaning">A site paragraph </note>
+      </trans-unit>
+      <trans-unit id="4205576b0438c312da3c406883fdd66f5d4ed440" datatype="html">
+        <source>The Danish translation works! hurray for that!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

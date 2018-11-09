@@ -1,0 +1,44 @@
+h1 {
+    color: red;
+}
+.top-nav-link {
+    color: red;
+
+}
+.thin-nav {
+    min-height: 30px !important;
+    max-height: 30px !important;
+    background-color: #f8f9fa;
+}
+
+.nav-link-2 {
+    text-decoration: none;
+    color: #7c7c7d;
+    padding: 10px;
+}
+
+.nav-link-2:hover {
+    color: #181819;
+}
+
+.nav-link-2.active {
+    color: #181819;
+}
+.nav-link-2.active:hover {
+    cursor: pointer;
+}
+
+.topItem {
+    z-index: 100;
+}
+
+/*---Media Queries --*/
+@media (max-width: 992px) {
+    
+  }
+  @media (max-width: 768px) {
+    
+  }
+  @media (max-width: 576px) {
+    
+  }

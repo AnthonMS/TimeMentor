@@ -1,0 +1,57 @@
+<div class="container-fluid padding" style="padding-top: 20px;">
+
+
+  <div class="container-fluid">
+    <div class="row text-center padding">
+
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <!-- THIS IS THE LEFT SIDE OF THE PAGE -->
+      </div>
+
+      <div class="col-sx-12 col-sm-6 col-md-4 signin-container">
+        <div class="col-12">
+
+          <div class="row welcome text-center">
+            <div class="col-12">
+              <h1 class="display-4">Log Ind</h1>
+            </div>
+            <hr class="title-seperator" style="max-width: 400px;">
+          </div>
+
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail">Email adresse</label>
+              <input [(ngModel)]="email" name="emailInput" type="email" class="form-control" id="exampleInputEmail"
+                aria-describedby="emailHelp" placeholder="Angiv email">
+              <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword">Kodeord</label>
+              <input [(ngModel)]="pass" name="passInput" type="password" class="form-control" id="exampleInputPassword"
+                placeholder="Angiv kodeord">
+            </div>
+            <!--<div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>-->
+            <button (click)="login()" type="submit" class="btn btn-primary">Log ind</button>
+          </form>
+
+          <div *ngIf="loginSuccess" class="alert alert-success" style="margin-top: 20px;">
+              <strong>Success!</strong> Login was successful.
+          </div>
+          <div *ngIf="loginUnsuccess" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Error!</strong> Login was unsuccessful.
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <!-- THIS IS THE RIGHT SIDE OF THE PAGE -->
+      </div>
+    </div>
+  </div>
+
+</div>

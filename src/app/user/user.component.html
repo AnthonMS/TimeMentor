@@ -1,0 +1,91 @@
+<div *ngIf="user" style="z-index: 50;">
+
+  <div class="container-fluid padding d-flex justify-content-center">
+    <div class="row padding col-xs-14 col-sm-10 col-md-10 d-flex justify-content-center center-container">
+
+      <div class="row welcome text-center">
+        <div class="col-12">
+          <h1 class="display-4">Detaljer</h1>
+        </div>
+        <hr class="title-seperator" style="width: 90%;">
+      </div>
+      <div class="container-fluid">
+        <form>
+          <div class="form-group">
+            <label for="email-details">Bruger</label>
+            <hr align="left" class="title-seperator" style="width: 25%;">
+            <input [disabled]="disabled" [(ngModel)]="user.name" name="nameInput" type="text" class="form-control" id="name-details"
+              placeholder="Navn">
+          </div>
+
+          <div class="form-group">
+            <!--<label for="exampleInputPassword">Kodeord</label>-->
+            <input [disabled]="disabled" [(ngModel)]="user.email" name="emailInput" type="email" class="form-control"
+              id="email-details" placeholder="Email">
+          </div>
+
+          <div class="form-group">
+            <!--<label for="exampleInputPassword">Kodeord</label>-->
+            <input [disabled]="disabled" [(ngModel)]="user.phone" name="phoneInput" type="text" class="form-control" id="phone-details"
+              placeholder="Telefon">
+          </div>
+
+          <div class="form-group">
+            <label for="email-details">Virksomhed</label>
+            <hr align="left" class="title-seperator" style="width: 25%;">
+            <input [disabled]="disabled || !user.superuser" [(ngModel)]="user.companyName" name="companyNameInput" type="text"
+              class="form-control" id="companyName-details" placeholder="Virksomhed Navn">
+          </div>
+
+          <div class="form-group">
+            <!--<label for="exampleInputPassword">Kodeord</label>-->
+            <input [disabled]="disabled || !user.superuser" [(ngModel)]="user.companyEmail" name="companyEmailInput"
+              type="email" class="form-control" id="companyEmail-details" placeholder="Virksomhed Email">
+          </div>
+
+          <div class="form-group">
+            <!--<label for="exampleInputPassword">Kodeord</label>-->
+            <input [disabled]="disabled || !user.superuser" [(ngModel)]="user.companyPhone" name="companyPhoneInput"
+              type="text" class="form-control" id="companyPhone-details" placeholder="Virksomhed Telefon">
+          </div>
+        </form>
+
+
+
+        <div class="form-group">
+          <div class="btn-group float-left mt-2" role="group">
+            <button [disabled]="disabled" (click)="updateUser()" type="submit" class="btn btn-primary btn-md">
+              <i class="material-icons">edit</i> Opdater
+            </button>
+          </div>
+
+          <div class="btn-group float-right mt-2" role="group">
+            <button (click)="disabled = !disabled;" type="submit" class="btn btn-danger btn-md">
+              <div *ngIf="disabled"><i class="material-icons">edit</i> Rediger</div>
+              <div *ngIf="!disabled"><i class="material-icons">edit</i> Annuller</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 100px;">
+          <div *ngIf="responseMsg=='SUCCESS'" class="alert alert-success" style="margin-top: 20px;">
+            <strong>Success</strong> Vi har nu opdateret dine informationer.
+          </div>
+          <div *ngIf="responseMsg=='MISSING_INPUT'" class="alert alert-danger" style="margin-top: 20px;">
+            <strong>Fejl</strong> Mangler Input.
+          </div>
+          <div *ngIf="responseMsg=='EMAIL_EXIST'" class="alert alert-danger" style="margin-top: 20px;">
+            <strong>Fejl</strong> Email eksisterer.
+          </div>
+          <div *ngIf="responseMsg=='DB_ERROR'" class="alert alert-danger" style="margin-top: 20px;">
+            <strong>Fejl</strong> Der skete en fejl da vi prøvede at opdatere dine informationer.
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

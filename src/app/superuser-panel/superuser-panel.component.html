@@ -1,0 +1,83 @@
+<div *ngIf="user" style="z-index: 50;">
+
+  <div class="container-fluid padding d-flex justify-content-center">
+    <div class="row padding col-xs-16 col-sm-10 col-md-10 d-flex justify-content-center center-container">
+
+      <div class="row welcome text-center">
+        <div class="col-12">
+          <h1 class="display-4">Administrer Brugere</h1>
+        </div>
+        <hr class="title-seperator" style="width: 95%;">
+      </div>
+
+      <div class="container-fluid padding d-flex justify-content-center">
+
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-light" (click)="resetInputFields()">
+              <tr>
+                <th class="text-center">{{user.numberOfUsers}} / {{user.licenseQuantity}}</th>
+                <th>Navn</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Actions <i (click)="navigateToCreateUser()" class="material-icons btn btn-success" style="margin-left: 4px">person_add</i></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let userList of users | filterBy: userFilter | paginate: paginateConf; index as i">
+                <td class="text-center userIndex" [ngClass]="{ 'green-bg': user.id == userList.id }">{{ (paginateConf.currentPage - 1) * paginateConf.itemsPerPage + i + 1 }}</td>
+                <td><input disabled [(ngModel)]="userList.name" name="nameInput" type="text"
+                    class="form-control columnStretch" id="name-details" placeholder="Navn"></td>
+                <td><input disabled [(ngModel)]="userList.email" name="emailInput" type="email"
+                    class="form-control columnStretch" id="email-details" placeholder="Email"></td>
+                <td><input disabled [(ngModel)]="userList.phone" name="phoneInput" type="text"
+                    class="form-control columnStretch" id="phone-details" placeholder="Telefon"></td>
+                <td class="">
+                  <button *ngIf="!editing || i!=indexClicked" (click)="editUser(users[(paginateConf.currentPage - 1) * paginateConf.itemsPerPage + i], i)" class="btn btn-primary"
+                    style="margin-left: 4px; margin-top: 4px"><i class="material-icons editBtn">edit</i></button>
+
+                  <button *ngIf="editing && i==indexClicked" (click)="updateUserDetails(users[(paginateConf.currentPage - 1) * paginateConf.itemsPerPage + i])" class="btn btn-success"
+                    style="margin-left: 4px; margin-top: 4px"><i class="material-icons">thumb_up</i></button>
+
+                  <button *ngIf="editing && i==indexClicked" (click)="resetInputFields()" class="btn btn-danger" style="margin-left: 4px; margin-top: 4px"><i
+                      class="material-icons">cancel</i></button>
+
+                  <button *ngIf="editing && i==indexClicked" class="btn btn-danger" style="margin-left: 4px; margin-top: 4px"
+                    mwlConfirmationPopover [popoverTitle]="confirmTitle" [popoverMessage]="confirmMessage"
+                    [confirmText]="confirmBtn" [cancelText]="confirmBtnCancel" placement="left" (confirm)="deleteUser(users[(paginateConf.currentPage - 1) * paginateConf.itemsPerPage + i])"
+                    (cancel)="test()">
+                    <i class="material-icons">delete_outline</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="container-fluid">
+            <div class="row d-flex bd-highlight">
+                <div class="p-2 flex-fill bd-highlight">
+                    <div class="input-group">
+                      <input [(ngModel)]="userFilter.name" name="searchInput" type="text" class="form-control place-inline" id="search-input"
+                        placeholder="Søg ved navn">
+                      <span class="btn btn-primary" type="button" (click)="test()">Søg</span>
+                    </div>
+                  </div>
+
+              <div>
+                <pagination-controls class="" (pageChange)="paginateConf.currentPage = $event" autoHide="true" responsive="true" previousLabel="Forige"
+                  nextLabel="Næste"></pagination-controls>
+              </div>
+
+              
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

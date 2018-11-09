@@ -1,0 +1,59 @@
+<!--Small Navigation bar with login button-->
+<div class="container-fluid thin-nav ">
+    <div class="row">
+        <div class="ml-auto col-auto">
+            <!--<select class="selectpicker" data-width="fit">
+                <option data-content=''>DA</option>
+                <option  data-content=''>EN</option>
+            </select>-->
+            <a routerLink="support" class="nav-link-2" [ngClass]="{ 'active': currentTab.includes('support') }">Support</a>
+            <a *ngIf="!loginCookieExist" routerLink="logind" class="nav-link-2" [ngClass]="{ 'active': currentTab.includes('logind') }" href="#">Log ind <i class="material-icons">lock_open</i></a>
+            <a *ngIf="loginCookieExist" (click)="logout()" class="nav-link-2" href="">Log ud <i class="material-icons">lock_outlined</i></a>
+        </div>
+    </div>
+</div>
+
+
+<!--Large Navigation bar with Home, About and such-->
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="../../assets/images/temp-logo.png" style="max-height: 50px;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" [ngClass]="{ 'active': currentTab == '/' }">
+                    <a routerLink="" class="nav-link">Hjem</a>
+                </li>
+                <li *ngIf="loginCookieExist" class="nav-item" [ngClass]="{ 'active': currentTab.includes('registrer-tid') }">
+                    <a routerLink="registrer-tid" class="nav-link">Registrer tid</a>
+                </li>
+                <li *ngIf="loginCookieExist" class="nav-item" [ngClass]="{ 'active': currentTab.includes('bruger') }">
+                    <a routerLink="bruger" class="nav-link">Bruger</a>
+                </li>
+                <li *ngIf="loginCookieExist" class="nav-item" [ngClass]="{ 'active': currentTab.includes('admin') }">
+                    <a routerLink="admin/manage-users" class="nav-link">Admin Panel</a>
+                </li>
+                <li *ngIf="!loginCookieExist" class="nav-item"  [ngClass]="{ 'active': currentTab.includes('features') }">
+                    <a routerLink="features" class="nav-link">Features</a>
+                </li>
+                <li *ngIf="!loginCookieExist" class="nav-item"  [ngClass]="{ 'active': currentTab.includes('about') }">
+                    <a routerLink="about" class="nav-link">Om os</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div *ngIf="adminTab">
+    <div class="container-fluid thin-nav" style="max-height: 45px !important; padding-top: 5px; padding-bottom: 5px;">
+        <div class="row border-black">
+            <div class="ml-auto col-auto">
+                <a routerLink="admin/manage-users" class="nav-link-2" [ngClass]="{ 'active': currentTab.includes('manage-users') }">Administrer Brugere</a>
+                <a routerLink="admin/create-user" class="nav-link-2" [ngClass]="{ 'active': currentTab.includes('create-user') }">Opret Bruger</a>
+            </div>
+        </div>
+    </div>
+</div>

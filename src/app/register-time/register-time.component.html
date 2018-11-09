@@ -1,0 +1,76 @@
+<div class="container-fluid padding d-flex justify-content-center">
+    <div class="row padding col-xs-14 col-sm-10 col-md-10 d-flex justify-content-center center-container">
+
+        <div class="row welcome text-center">
+            <div class="col-12">
+                <h1 class="display-4">Registrer tid</h1>
+            </div>
+            <hr class="title-seperator" style="width: 95%;">
+        </div>
+
+        <div class="container-fluid padding d-flex justify-content-center">
+            <div class="container-fluid padding">
+                <div class="row padding">
+                    <div class="col-lg-6">
+                        <label>Vælg borger</label>
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
+                                    style="text-align: left; border: 1px solid lightgray;">{{ comboboxMsg
+                                    }}
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto; max-width: 80%;">
+                                    <li *ngFor="let borger of borgere; index as i" (click)="selectBorger(i)" role="presentation"
+                                        class="btn btn-custom">{{ borger.name }}</li>
+                                    <li *ngFor="let borger of borgere" role="presentation" class="divider"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dateOfRegistration">Dato</label>
+                            <div class="input-group">
+                                <input id="dateOfRegistration" name="dateOfRegistration" [(ngModel)]="registrationForm.date"
+                                    type="text" bsDatepicker [bsConfig]="datePickerConfig" class="form-control" #dp="bsDatepicker">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Vælg</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
+                                    style="text-align: left; border: 1px solid lightgray;">{{ registrationForm.timeInterval
+                                    }}
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
+                                    <li *ngFor="let time of timeIntervals; index as i" role="presentation" class="btn btn-custom"
+                                        (click)="registrationForm.timeInterval=time">{{ time }}</li>
+                                    <li *ngFor="let time of timeIntervals" role="presentation" class="divider"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="description">Kort beskrivelse</label>
+                            <div class="input-group">
+                                <textarea rows="5" cols="100" id="description" name="description" [(ngModel)]="registrationForm.description"
+                                    type="text" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="btn-group float-right mt-2" role="group">
+                            <button [disabled]="checkInputFields()" (click)="registerTime()" type="submit" class="btn btn-success btn-md">
+                                <div><i class="material-icons">save</i> Registrer</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

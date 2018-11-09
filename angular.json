@@ -23,11 +23,21 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": []
           },
           "configurations": {
+            "da": {
+              "aot": true,
+              "outputPath": "dist/TimeReg-da",
+              "i18nFile": "src/locale/messages.da.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "da",
+              "i18nMissingTranslation": "warning"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -62,6 +72,9 @@
           "configurations": {
             "production": {
               "browserTarget": "TimeReg:build:production"
+            },
+            "da": {
+              "browserTarget": "TimeReg:build:da"
             }
           }
         },
@@ -131,5 +144,10 @@
       }
     }
   },
-  "defaultProject": "TimeReg"
+  "defaultProject": "TimeReg",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
