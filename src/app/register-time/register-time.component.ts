@@ -14,12 +14,14 @@ export class RegisterTimeComponent implements OnInit {
   private borgere: Array<object> = [];
   private timeIntervals: Array<string> = ['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'];
+  private attendanceArray: Array<string> = ['Mødt', 'Udeblevet', 'Aflyst', 'Ferie'];
   private registrationForm: Object = {
     borgerId: null,
     companyId: null,
     date: new Date(),
     description: '',
     timeInterval: 'Tid brugt',
+    attendance: 'Vælg fremmøde',
     userId: null,
   };
 

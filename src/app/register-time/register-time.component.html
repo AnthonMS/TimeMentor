@@ -12,7 +12,7 @@
             <div class="container-fluid padding">
                 <div class="row padding">
                     <div class="col-lg-6">
-                        <label>Vælg borger</label>
+                        <label>Borger</label>
                         <div class="form-group">
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
@@ -42,7 +42,8 @@
                         <div class="form-group">
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
-                                    style="text-align: left; border: 1px solid lightgray;">{{ registrationForm.timeInterval
+                                    style="text-align: left; border: 1px solid lightgray;">{{
+                                    registrationForm.timeInterval
                                     }}
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
@@ -55,6 +56,21 @@
 
                     </div>
                     <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="description">Fremmøde</label>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
+                                    style="text-align: left; border: 1px solid lightgray;">{{
+                                    registrationForm.attendance
+                                    }}
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
+                                    <li *ngFor="let attendance of attendanceArray; index as i" role="presentation" class="btn btn-custom"
+                                        (click)="registrationForm.attendance=attendance">{{ attendance }}</li>
+                                    <li *ngFor="let attendance of attendanceArray" role="presentation" class="divider"></li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="description">Kort beskrivelse</label>
                             <div class="input-group">
