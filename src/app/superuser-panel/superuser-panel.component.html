@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let userList of users | filterBy: userFilter | paginate: paginateConf; index as i">
+              <tr *ngFor="let userList of filteredUsers | paginate: paginateConf; index as i">
                 <td class="text-center userIndex" [ngClass]="{ 'green-bg': user.id == userList.id }">{{ (paginateConf.currentPage - 1) * paginateConf.itemsPerPage + i + 1 }}</td>
                 <td><input disabled [(ngModel)]="userList.name" name="nameInput" type="text"
                     class="form-control columnStretch" id="name-details" placeholder="Navn"></td>
@@ -58,8 +58,8 @@
             <div class="row d-flex bd-highlight">
                 <div class="p-2 flex-fill bd-highlight">
                     <div class="input-group">
-                      <input [(ngModel)]="userFilter.name" name="searchInput" type="text" class="form-control place-inline" id="search-input"
-                        placeholder="Søg ved navn">
+                      <input [(ngModel)]="searchTerm" name="searchInput" type="text" class="form-control place-inline" id="search-input"
+                        placeholder="Søg ved navn, mail eller telefon">
                       <span class="btn btn-primary" type="button" (click)="test()">Søg</span>
                     </div>
                   </div>

@@ -23,24 +23,18 @@ export class SuperuserPanelComponent implements OnInit {
 
   private user: Object;
   private users: Array<object> = [];
+  private filteredUsers: Array<object> = [];
   private editing: boolean = false;
   private indexClicked = null;
-
-  private userFilter: any = {
-    email: '',
-    name: '',
-    phone: '',
-    username: ''
-  };
   
-  /*private _searchTerm: string;
+  private _searchTerm: string;
   get searchTerm(): string {
     return this._searchTerm;
   }
   set searchTerm(value: string) {
     this._searchTerm = value;
-    console.log("SearchTerm new value = " + this._searchTerm);
-  }*/
+    this.filterUserlist();
+  }
 
   constructor(private data: DataService,
     private cookieService: CookieService,
@@ -51,6 +45,29 @@ export class SuperuserPanelComponent implements OnInit {
       this.router.navigate(['']);
     }
     this.getUser();
+  }
+
+  private filterUserlist() 
+  {
+    var tempSearch = this._searchTerm.toLowerCase();
+    this.filteredUsers = [];
+
+    for (var q = 0; q < this.users.length; q++) 
+    {
+      var tempName = this.users[q]['name'].toLowerCase();
+      var tempMail = this.users[q]['email'].toLowerCase();
+      var tempPhone = this.users[q]['phone'].toLowerCase();
+
+      if (tempName.includes(tempSearch)) {
+        this.filteredUsers.push(this.users[q]);
+      }
+      else if (tempMail.includes(tempSearch)) {
+        this.filteredUsers.push(this.users[q]);
+      }
+      else if (tempPhone.includes(tempSearch)) {
+        this.filteredUsers.push(this.users[q]);
+      }
+    }
   }
 
   getUser() {
@@ -72,6 +89,7 @@ export class SuperuserPanelComponent implements OnInit {
     this.data.getAllUsers(this.user['companyId']).subscribe((response) => {
       //console.log(response['result']);
       this.users = response['result'];
+      this.filteredUsers = response['result'];
     });
   }
 
@@ -85,8 +103,8 @@ export class SuperuserPanelComponent implements OnInit {
     var inputArray = document.getElementsByClassName("form-control");
     let startIndex = 0;
     for (let q = 0; q < inputArray.length; q++) {
-      if (inputArray[q]['value'] == user['name']) {
-        startIndex = q;
+      if (inputArray[q]['value'] == user['email']) {
+        startIndex = q - 1;
       }
     }
     for (let q = startIndex; q < startIndex + 3; q++) {
@@ -100,8 +118,11 @@ export class SuperuserPanelComponent implements OnInit {
     this.editing = false;
     var inputArray = document.getElementsByClassName("form-control");
     for (let q = 0; q < inputArray.length; q++) {
-      inputArray[q].removeAttribute('enabled');
-      inputArray[q].setAttribute('disabled', 'disabled');
+      if (inputArray[q].getAttribute('id') !== 'search-input') {
+        inputArray[q].removeAttribute('enabled');
+        inputArray[q].setAttribute('disabled', 'disabled');
+      }
+      
     }
   }
 
@@ -140,6 +161,6 @@ export class SuperuserPanelComponent implements OnInit {
   }
 
   test() {
-    console.log(this.indexTest);
+    //console.log(this.indexTest);
   }
 }

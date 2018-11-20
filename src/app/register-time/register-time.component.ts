@@ -20,7 +20,7 @@ export class RegisterTimeComponent implements OnInit {
     date: new Date(),
     description: '',
     timeInterval: 'Tid brugt',
-    userId: null,
+    userId: null
   };
 
   private selectedBorger: Object;
@@ -63,7 +63,7 @@ export class RegisterTimeComponent implements OnInit {
   }
 
   selectBorger(index) {
-    console.log(this.borgere[index]);
+    //console.log(this.borgere[index]);
     this.selectedBorger = this.borgere[index];
     this.comboboxMsg = this.selectedBorger['name'];
     this.registrationForm['companyId'] = this.borgere[index]['companyId'];
@@ -76,7 +76,10 @@ export class RegisterTimeComponent implements OnInit {
 
   registerTime() {
     this.registrationForm['userId'] = this.user['id'];
-    console.log(this.registrationForm);
+    //this.registrationForm['date'] = this.registrationForm['date'].toString();
+    //console.log(this.registrationForm);
+    console.log(this.registrationForm['date']);
+    
 
     this.data.registerTime(this.registrationForm).subscribe((response) => {
       console.log(response);
@@ -84,7 +87,7 @@ export class RegisterTimeComponent implements OnInit {
   }
 
   checkInputFields() {
-    let disableBtn = false;
+    let disableBtn = true;
     let temp = this.dateOfRegistration instanceof Date;
     //console.log(this.dateOfRegistration);
     if (this.comboboxMsg !== 'Vælg borger' && this.registrationForm['timeInterval'] !== 'Tid brugt' && temp) {
