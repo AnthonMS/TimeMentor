@@ -25,7 +25,7 @@ switch($_SERVER['REQUEST_METHOD'])
 function registerTime($localConn) {
     $request_body = file_get_contents('php://input');
     $data = json_decode($request_body);
-
+    
     $userId = $data->userId;
     $companyId = $data->companyId;
     $borgerId = $data->borgerId;
@@ -36,16 +36,15 @@ function registerTime($localConn) {
     $timeIntervalString = $data->timeInterval;
     $timeInterval = convertTime($timeIntervalString);
 
-    $attendance = $data->attendance;
-    $description = $data->description;
+    $attendance = utf8_decode($data->attendance);
+    $description = utf8_decode($data->description);
 
-    $sql = "INSERT INTO timeregistrations (userId, companyId, borgerId, date, timeInterval, attendance, description) VALUES ($userId, $companyId, $borgerId, '$dateFormat', $timeInterval, '$attendance', '$description')";
+    $sql = "INSERT INTO timeregistrations (userId, companyId, borgerId, date, timeInterval, attendance, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $localConn->prepare($sql);
+    $stmt->bind_param('iiisiss', $userId, $companyId, $borgerId, $dateFormat, $timeInterval, $attendance, $description);
 
-    if ($localConn->query($sql) === TRUE){
-        echo "success!";
-    } else {
-        echo " " . "failed" . $localConn->error;
-    }
+    $stmt->execute();
+    $stmt->close();
 
     return $request_body;
 }
