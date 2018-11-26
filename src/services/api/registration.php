@@ -49,9 +49,6 @@ function registerTime($localConn) {
     return $request_body;
 }
 
-<<<<<<< HEAD
-=======
-
 function convertTime($timeIntervalStringtoConvert){
     $timeInterval = "";
 
@@ -91,4 +88,3 @@ function convertTime($timeIntervalStringtoConvert){
 
     return $timeInterval;
 }
->>>>>>> 29672cc81816d75e970762e64a72cf517431c635
