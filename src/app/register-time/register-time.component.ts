@@ -21,12 +21,8 @@ export class RegisterTimeComponent implements OnInit {
     date: new Date(),
     description: '',
     timeInterval: 'Tid brugt',
-<<<<<<< HEAD
-    userId: null
-=======
     attendance: 'Vælg fremmøde',
     userId: null,
->>>>>>> 29672cc81816d75e970762e64a72cf517431c635
   };
 
   private selectedBorger: Object;
