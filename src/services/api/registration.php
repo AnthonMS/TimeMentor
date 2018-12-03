@@ -33,58 +33,29 @@ function registerTime($localConn) {
     $date = new DateTime($data->date);
     $dateFormat = $date->format('Y-m-d H:i:s');
 
-    $timeIntervalString = $data->timeInterval;
-    $timeInterval = convertTime($timeIntervalString);
+    $tmpTime = $data->tmpTime;
 
     $attendance = utf8_decode($data->attendance);
     $description = utf8_decode($data->description);
 
+    $outputArray = array();
+    $outputArray['success'] = false;
+    $outputArray['msg'] = "ERROR";
+
     $sql = "INSERT INTO timeregistrations (userId, companyId, borgerId, date, timeInterval, attendance, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $localConn->prepare($sql);
-    $stmt->bind_param('iiisiss', $userId, $companyId, $borgerId, $dateFormat, $timeInterval, $attendance, $description);
+    $stmt->bind_param('iiisiss', $userId, $companyId, $borgerId, $dateFormat, $tmpTime, $attendance, $description);
 
-    $stmt->execute();
-    $stmt->close();
-
-    return $request_body;
-}
-
-function convertTime($timeIntervalStringtoConvert){
-    $timeInterval = "";
-
-    switch($timeIntervalStringtoConvert)
+    if ($stmt->execute()) 
     {
-        case '15 Min.':
-        $timeInterval = 15;
-        break;
-        case '30 Min.':
-        $timeInterval = 30;
-        break;
-        case '45 Min.':
-        $timeInterval = 45;
-        break;
-        case '1 Time':
-        $timeInterval = 60;
-        break;
-        case '1 Time, 15 Min.':
-        $timeInterval = 75;
-        break;
-        case '1 Time, 30 Min.':
-        $timeInterval = 90;
-        break;
-        case '1 Time, 45 Min.':
-        $timeInterval = 105;
-        break;
-        case '2 Timer':
-        $timeInterval = 120;
-        break;
-        case '2 Timer, 30 Min.':
-        $timeInterval = 150;
-        break;
-        case '3+ Timer':
-        $timeInterval = 180;
-        break;
+        $outputArray['success'] = true;
+        $outputArray['msg'] = "SUCCESS: saved registration";
+    } else {
+        $outputArray['msg'] = "ERROR: did not save registration";
     }
 
-    return $timeInterval;
+    //$stmt->execute();
+    $stmt->close();
+
+    return json_encode($outputArray);;
 }

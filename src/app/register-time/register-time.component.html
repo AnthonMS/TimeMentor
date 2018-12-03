@@ -47,9 +47,9 @@
                                     }}
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
-                                    <li *ngFor="let time of timeIntervals; index as i" role="presentation" class="btn btn-custom"
-                                        (click)="registrationForm.timeInterval=time">{{ time }}</li>
-                                    <li *ngFor="let time of timeIntervals" role="presentation" class="divider"></li>
+                                    <li *ngFor="let time of advancedIntervalArray[0]; index as i" role="presentation" class="btn btn-custom"
+                                        (click)="selectTime(i)">{{ time }}</li>
+                                    <li *ngFor="let time of advancedIntervalArray[0]" role="presentation" class="divider"></li>
                                 </ul>
                             </div>
                         </div>
@@ -82,8 +82,22 @@
                             <button [disabled]="checkInputFields()" (click)="registerTime()" type="submit" class="btn btn-success btn-md">
                                 <div><i class="material-icons">save</i> Registrer</div>
                             </button>
+                            <button *ngIf="false" (click)="test()" type="submit" class="btn btn-success btn-md">
+                                <div><i class="material-icons">save</i> Test</div>
+                            </button>
                         </div>
                     </div>
+                </div>
+                <div class="row padding justify-content-center" style="margin: 20px 20px 5px 20px;">
+                        <div *ngIf="responseMsg=='SUCCESS'" class="alert alert-success">
+                          <strong>Success</strong> Du har nu registreret tid.
+                        </div>
+                        <div *ngIf="responseMsg=='MISSING_INPUT'" class="alert alert-danger">
+                          <strong>Fejl</strong> Mangler Input.
+                        </div>
+                        <div *ngIf="responseMsg=='DB_ERROR'" class="alert alert-danger">
+                          <strong>Fejl</strong> Der skete en fejl da vi prøvede at registrerer tiden. Prøv igen.
+                        </div>
                 </div>
             </div>
         </div>

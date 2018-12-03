@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { ArrayType } from '@angular/compiler';
 
 @Component({
   selector: 'app-register-time',
@@ -14,6 +15,10 @@ export class RegisterTimeComponent implements OnInit {
   private borgere: Array<object> = [];
   private timeIntervals: Array<string> = ['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'];
+
+  private advancedIntervalArray: Array<Array<any>> = [['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.', 
+    '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'], [15, 30, 45, 60, 75, 90, 105, 120, 150, 180]];
+
   private attendanceArray: Array<string> = ['Mødt', 'Udeblevet', 'Aflyst', 'Ferie'];
   private registrationForm: Object = {
     borgerId: null,
@@ -21,6 +26,7 @@ export class RegisterTimeComponent implements OnInit {
     date: new Date(),
     description: '',
     timeInterval: 'Tid brugt',
+    tmpTime: 0,
     attendance: 'Vælg fremmøde',
     userId: null,
   };
@@ -29,6 +35,7 @@ export class RegisterTimeComponent implements OnInit {
   private comboboxMsg: string = "Vælg borger";
   datePickerConfig: Partial<BsDatepickerConfig>;
   dateOfRegistration: Date = new Date();
+  private responseMsg:string = "NONE";
 
   constructor(private data: DataService,
     private cookieService: CookieService,
@@ -65,26 +72,32 @@ export class RegisterTimeComponent implements OnInit {
   }
 
   selectBorger(index) {
-    //console.log(this.borgere[index]);
     this.selectedBorger = this.borgere[index];
     this.comboboxMsg = this.selectedBorger['name'];
     this.registrationForm['companyId'] = this.borgere[index]['companyId'];
     this.registrationForm['borgerId'] = this.borgere[index]['id'];
   }
 
+  selectTime(index) {
+    this.registrationForm['timeInterval'] = this.advancedIntervalArray[0][index];
+    this.registrationForm['tmpTime'] = this.advancedIntervalArray[1][index];
+  }
+
   test() {
-    console.log(this.user);
+
   }
 
   registerTime() {
     this.registrationForm['userId'] = this.user['id'];
-    //this.registrationForm['date'] = this.registrationForm['date'].toString();
-    //console.log(this.registrationForm);
-    console.log(this.registrationForm['date']);
-    
 
     this.data.registerTime(this.registrationForm).subscribe((response) => {
-      console.log(response);
+      //console.log(response);
+      let resp = JSON.parse(response);
+      if (resp.success) {
+        this.responseMsg = "SUCCESS";
+      } else {
+        this.responseMsg = "DB_ERROR";
+      }
     });
   }
 

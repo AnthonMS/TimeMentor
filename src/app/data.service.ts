@@ -117,7 +117,7 @@ export class DataService {
     return this.http.post(
       this.API_URL + "registration.php?function=registerTime",
       registrationForm,
-      { responseType: 'json' }
+      { responseType: 'text' }
     );
   }
 
