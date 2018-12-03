@@ -56,9 +56,10 @@ export class RegisterTimeComponent implements OnInit {
 
   getUser() {
     this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
-      response['result'][0]['oldEmail'] = response['result'][0]['email'];
-      this.user = response['result'][0];
-
+      //console.log(response);
+      let resp = JSON.parse(response);
+      resp.result[0].oldEmail = resp.result[0].email;
+      this.user = resp.result[0];
       this.data.getBorgere(this.user['companyId']).subscribe((response) => {
         let respObj = JSON.parse(response);
         if (respObj.success == true) {
@@ -67,7 +68,6 @@ export class RegisterTimeComponent implements OnInit {
           this.borgere = null;
         }
       });
-
     });
   }
 

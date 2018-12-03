@@ -8,6 +8,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 
 
 include("includes/db_conn.php");
+include("includes/response.php");
 
 switch($_SERVER['REQUEST_METHOD'])
 {
@@ -38,9 +39,9 @@ function registerTime($localConn) {
     $attendance = utf8_decode($data->attendance);
     $description = utf8_decode($data->description);
 
-    $outputArray = array();
-    $outputArray['success'] = false;
-    $outputArray['msg'] = "ERROR";
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
 
     $sql = "INSERT INTO timeregistrations (userId, companyId, borgerId, date, timeInterval, attendance, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $localConn->prepare($sql);
@@ -48,14 +49,14 @@ function registerTime($localConn) {
 
     if ($stmt->execute()) 
     {
-        $outputArray['success'] = true;
-        $outputArray['msg'] = "SUCCESS: saved registration";
+        $response->setSuccess(true);
+        $response->setMsg("SUCCESS: saved registration");
     } else {
-        $outputArray['msg'] = "ERROR: did not save registration";
+        $response->setMsg("ERROR: did not save registration");
     }
 
     //$stmt->execute();
     $stmt->close();
 
-    return json_encode($outputArray);;
+    return $response->jsonEnc();
 }

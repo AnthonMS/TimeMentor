@@ -8,18 +8,20 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 
 
 include("includes/db_conn.php");
+include("includes/response.php");
 
 switch($_SERVER['REQUEST_METHOD'])
 {
     case 'POST':
         if ($_REQUEST['function'] == "login"){
-            login($connect);
+            //login($connect);
+            echo login($connect);
         }
         else if ($_REQUEST['function'] == "checkToken") {
-            checkToken($connect);
+            echo checkToken($connect);
         }
         else if ($_REQUEST['function'] == "getUser") {
-            getUser($connect);
+            echo getUser($connect);
         }
         break;
     case 'GET':
@@ -32,6 +34,7 @@ function login($localConn)
 {
     $request_body = file_get_contents('php://input');
     $data = json_decode($request_body);
+    $returnStr = "";
 
     $email = $data->email;
     $email = utf8_encode($email);
@@ -44,6 +47,10 @@ function login($localConn)
     $query = mysqli_query($localConn, $sql);
     $rows = mysqli_num_rows($query);
 
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
     if ($rows == 1)
     {
         $dataArray = mysqli_fetch_array($query);
@@ -53,17 +60,23 @@ function login($localConn)
         if ($email == $dbEmail && 
             $password == $dbPassword) {
             // SETTING THE COOKIETOKEN
-            echo "SUCCESS";
+            $returnStr = "SUCCESS";
+            $response->setSuccess(true);
+            $response->setMsg("SUCCESS: Login correct");
         } else {
             //echo "Incorrect login, " . $email , ", " . $password;
-            echo "ERROR";
+            $returnStr = "ERROR";
+            $response->setMsg("ERROR: Wrong email or password");
         }
     }
     else 
     {
-        echo "ERROR";
+        $returnStr = "ERROR";
+        $response->setMsg("ERROR: Wrong email or password");
+        //echo "ERROR";
     }
-
+    
+    return $response->jsonEnc();
 }
 
 function checkToken($localConn)
@@ -76,19 +89,27 @@ function checkToken($localConn)
     $token = $data->token;
     $token = mysqli_real_escape_string($localConn, $token);
 
+    $response2 = new Response;
+    $response2->setSuccess(false);
+    $response2->setMsg("ERROR");
+
     $sql = "SELECT * FROM users WHERE token = '$token'";
     $query = mysqli_query($localConn, $sql);
     $rows = mysqli_num_rows($query);
     if ($rows >= 1) {
+        $response2->setMsg("EXIST");
         $response = "EXIST";
     }
     else {
+        $response2->setSuccess(true);
+        $response2->setMsg("NOT EXIST");
         $response = "NOT EXIST";
         $sql = "UPDATE users SET token = '$token' WHERE email='$email';";
         $query = mysqli_query($localConn, $sql);
     }
 
-    echo $response;
+    //echo $response;
+    return $response2->jsonEnc();
 }
 
 function getUser($localConn) {
@@ -101,9 +122,9 @@ function getUser($localConn) {
             WHERE token = '$token'";
     $result = $localConn->query($sql);
 
-    $outputArray = array();
-    $outputArray['success'] = false;
-    $outputArray['msg'] = "ERROR";
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
 
     if ($result->num_rows > 0) 
     {
@@ -133,14 +154,14 @@ function getUser($localConn) {
 
             $dataArray[] = $data;
         }
-        $outputArray['success'] = true;
-        $outputArray['msg'] = "Success";
-        $outputArray['result'] = $dataArray;
+        $response->setSuccess(true);
+        $response->setMsg("Success");
+        $response->setResult($dataArray);
     } 
     else
     {
-        $outputArray['msg'] = "The result of the request is 0";
+        $response->setMsg("The result of the request is 0");
     }
 
-    echo json_encode($outputArray);
+    return $response->jsonEnc();
 }

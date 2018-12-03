@@ -71,13 +71,16 @@ export class SuperuserPanelComponent implements OnInit {
   }
 
   getUser() {
-    //console.log(this.cookieService.get('token'));
     this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
-      this.user = response['result'][0];
+      //console.log(response);
+      let resp = JSON.parse(response);
+      this.user = resp.result[0];
       this.getAllUsers();
-      //console.log(this.user);
       this.data.getUserCount(this.user['companyId']).subscribe((response) => {
-        this.user['numberOfUsers'] = response['numberOfUsers'];
+        //console.log(response);
+        let resp = JSON.parse(response);
+        this.user['numberOfUsers'] = resp.result.numberOfUsers;
+        //this.user['numberOfUsers'] = response['numberOfUsers'];
       });
     });
   }

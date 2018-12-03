@@ -49,14 +49,14 @@ export class DataService {
     return this.http.post(
       this.API_URL + "login.php?function=getUser",
       token,
-      { responseType: 'json' });
+      { responseType: 'text' });
   }
 
   updateUser(user) {
     return this.http.post(
       this.API_URL + "user.php?function=updateUser",
       user,
-      { responseType: 'json' });
+      { responseType: 'text' });
   }
 
   getAllUsers(companyId) {
@@ -70,7 +70,7 @@ export class DataService {
     return this.http.post(
       this.API_URL + "user.php?function=getUserCount",
       companyId,
-      { responseType: 'json' });
+      { responseType: 'text' });
   }
 
   updateUsers(user) {

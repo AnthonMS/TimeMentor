@@ -62,16 +62,15 @@ export class CreateUserComponent implements OnInit {
   }
 
   getUser() {
-    //console.log(this.cookieService.get('token'));
     this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
-      this.user = response['result'][0];
-      /*console.log(JSON.stringify(response['result'][0]));
-      console.log(JSON.parse(JSON.stringify(response['result'][0])));*/
+      //console.log(response);
+      let resp = JSON.parse(response);
+      this.user = resp.result[0];
+
       this.data.getUserCount(this.user['companyId']).subscribe((response) => {
         this.user['numberOfUsers'] = response['numberOfUsers'];
       });
     });
-
   }
 
   hideShowPassword() {

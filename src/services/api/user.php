@@ -8,6 +8,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 
 
 include("includes/db_conn.php");
+include("includes/response.php");
 
 switch($_SERVER['REQUEST_METHOD'])
 {
@@ -46,9 +47,20 @@ function getUserCount($localConn)
 {
     $companyId = file_get_contents('php://input');
     $companyId = mysqli_real_escape_string($localConn, $companyId);
+
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
     $sql = "SELECT COUNT(id) AS numberOfUsers FROM users WHERE companyId=$companyId;";
     $result = $localConn->query($sql);
-    echo json_encode($result->fetch_assoc());
+    while ($row = $result->fetch_assoc()) {
+        $response->setSuccess(true);
+        $response->setMsg("SUCCESS");
+        $response->setResult($row);
+    }
+
+    return $response->jsonEnc();
 }
 
 function getUsers($localConn) {
@@ -59,9 +71,9 @@ function getUsers($localConn) {
     $sql = "SELECT *, email AS oldEmail FROM users WHERE companyId = $companyId";
     $result = $localConn->query($sql);
 
-    $outputArray = array();
-    $outputArray['success'] = false;
-    $outputArray['msg'] = "ERROR";
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
 
     if ($result->num_rows > 0) 
     {
@@ -85,17 +97,17 @@ function getUsers($localConn) {
 
             $dataArray[] = $data;
         }
-        $outputArray['success'] = true;
-        $outputArray['msg'] = "Success";
-        $outputArray['result'] = $dataArray;
+
+        $response->setSuccess(true);
+        $response->setMsg("Success");
+        $response->setResult($dataArray);
     } 
     else
     {
-        $outputArray['msg'] = "The result of the request is 0";
+        $response->setMsg("The result of the request is 0");
     }
 
-    return json_encode($outputArray);
-
+    return $response->jsonEnc();
 }
 
 function updateUser($localConn) {
@@ -126,17 +138,20 @@ function updateUser($localConn) {
     $companyPhone = $data->companyPhone;
     $companyPhone = mysqli_real_escape_string($localConn, $companyPhone);
 
-
-    $outputArray = array();
-    $outputArray['success'] = false;
-    $outputArray['msg'] = "ERROR";
     $sql = "";
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
 
+    // Gets the user in the system with the new email
     $sql = "SELECT * FROM users WHERE email='$email'";
     $query = mysqli_query($localConn, $sql);
     $rows = mysqli_num_rows($query);
+
+    // If there are a user in the system with the new email, check if it is the same user as editing
     if ($rows >= 1) {
         $dataArray = mysqli_fetch_array($query);
+        // It checks here if it is the same user editing.
         if ($dataArray['token'] == $token) 
         {
             if ($superUser) {
@@ -148,16 +163,16 @@ function updateUser($localConn) {
             }
     
             if ($localConn->query($sql) === TRUE) {
-                $outputArray['success'] = true;
-                $outputArray['msg'] = "Successfully updated user data";
+                $response->setSuccess(true);
+                $response->setMsg("Successfully updated user data");
             } else {
-                $outputArray['success'] = false;
-                $outputArray['msg'] = "Failed when updating user data";
+                $response->setSuccess(false);
+                $response->setMsg("Failed when updating user data");
             }
         }
         else {
-            $outputArray['success'] = false;
-            $outputArray['msg'] = "EMAIL EXIST";
+            $response->setSuccess(false);
+            $response->setMsg("EMAIL EXIST");
         }
 
         
@@ -171,15 +186,17 @@ function updateUser($localConn) {
         }
 
         if ($localConn->query($sql) === TRUE) {
-            $outputArray['success'] = true;
-            $outputArray['msg'] = "Successfully updated user data";
+
+            $response->setSuccess(true);
+            $response->setMsg("Successfully updated user data");
         } else {
-            $outputArray['success'] = false;
-            $outputArray['msg'] = "Failed when updating user data";
+
+            $response->setSuccess(false);
+            $response->setMsg("Failed when updating user data");
         }
     }
 
-    return json_encode($outputArray);
+    return $response->jsonEnc();
 }
 
 function updateUsers($localConn) 
@@ -202,6 +219,10 @@ function updateUsers($localConn)
     $outputArray['success'] = false;
     $outputArray['msg'] = "ERROR";
 
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
     $sql = "SELECT * FROM users WHERE email='$email'";
     $query = mysqli_query($localConn, $sql);
     $rows = mysqli_num_rows($query);
@@ -218,16 +239,25 @@ function updateUsers($localConn)
             if ($localConn->query($sql) === TRUE) {
                 $outputArray['success'] = true;
                 $outputArray['msg'] = "Successfully updated user data";
+
+                $response->setSuccess(true);
+                $response->setMsg("Successfully updated user data");
             } else {
                 $outputArray['success'] = false;
                 $outputArray['msg'] = "Failed when updatin user data";
+
+                $response->setSuccess(false);
+                $response->setMsg("Failed when updatin user data");
             }
         }
         else
         {
-            $outputArray['test'] = "NOT SAME ID";
+            //$outputArray['test'] = "NOT SAME ID";
             $outputArray['success'] = false;
             $outputArray['msg'] = "EMAIL EXIST";
+
+            $response->setSuccess(false);
+            $response->setMsg("EMAIL EXIST");
         }
     } else 
     {
@@ -235,12 +265,19 @@ function updateUsers($localConn)
         if ($localConn->query($sql) === TRUE) {
             $outputArray['success'] = true;
             $outputArray['msg'] = "Successfully updated user data";
+
+            $response->setSuccess(true);
+            $response->setMsg("Successfully updated user data");
         } else {
             $outputArray['success'] = false;
             $outputArray['msg'] = "Failed when updatin user data";
+
+            $response->setSuccess(false);
+            $response->setMsg("Failed when updatin user data");
         }
     }
 
+    $outputArray['tester123123123'] = $response;
     return json_encode($outputArray);
 }
 
