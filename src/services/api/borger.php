@@ -8,6 +8,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 
 
 include("includes/db_conn.php");
+include("includes/response.php");
 
 switch($_SERVER['REQUEST_METHOD'])
 {
@@ -35,6 +36,10 @@ function getBorgere($localConn)
     $outputArray['success'] = false;
     $outputArray['msg'] = "ERROR";
 
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
     if ($result->num_rows > 0) 
     {
         $dataArray = array();
@@ -51,11 +56,16 @@ function getBorgere($localConn)
         $outputArray['success'] = true;
         $outputArray['msg'] = "Success";
         $outputArray['result'] = $dataArray;
+        $response->setSuccess(true);
+        $response->setMsg("Success");
+        $response->setResult($dataArray);
+
     } 
     else
     {
+        $response->setMsg("The result of the request is 0");
         $outputArray['msg'] = "The result of the request is 0";
     }
-
-    return json_encode($outputArray);
+    return $response->jsonEnc();
+    //return json_encode($outputArray);
 }

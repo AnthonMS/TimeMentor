@@ -214,10 +214,6 @@ function updateUsers($localConn)
     $phone = mysqli_real_escape_string($localConn, $phone);
     $id = $data->id;
     $id = mysqli_real_escape_string($localConn, $id);
-    
-    $outputArray = array();
-    $outputArray['success'] = false;
-    $outputArray['msg'] = "ERROR";
 
     $response = new Response;
     $response->setSuccess(false);
@@ -226,36 +222,23 @@ function updateUsers($localConn)
     $sql = "SELECT * FROM users WHERE email='$email'";
     $query = mysqli_query($localConn, $sql);
     $rows = mysqli_num_rows($query);
-    //$outputArray['oldEmail'] = $oldEmail;
-    //$outputArray['email'] = $email;
-    //$outputArray['rows'] = $rows;
 
     if ($rows >= 1) {
         $dataArray = mysqli_fetch_array($query);
         if ($dataArray['id'] == $id) 
         {
-            $outputArray['test'] = "SAME ID";
+            //$outputArray['test'] = "SAME ID";
             $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone' WHERE id = $id;";
             if ($localConn->query($sql) === TRUE) {
-                $outputArray['success'] = true;
-                $outputArray['msg'] = "Successfully updated user data";
-
                 $response->setSuccess(true);
                 $response->setMsg("Successfully updated user data");
             } else {
-                $outputArray['success'] = false;
-                $outputArray['msg'] = "Failed when updatin user data";
-
                 $response->setSuccess(false);
                 $response->setMsg("Failed when updatin user data");
             }
         }
         else
         {
-            //$outputArray['test'] = "NOT SAME ID";
-            $outputArray['success'] = false;
-            $outputArray['msg'] = "EMAIL EXIST";
-
             $response->setSuccess(false);
             $response->setMsg("EMAIL EXIST");
         }
@@ -263,22 +246,15 @@ function updateUsers($localConn)
     {
         $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone' WHERE id = $id;";
         if ($localConn->query($sql) === TRUE) {
-            $outputArray['success'] = true;
-            $outputArray['msg'] = "Successfully updated user data";
-
             $response->setSuccess(true);
             $response->setMsg("Successfully updated user data");
         } else {
-            $outputArray['success'] = false;
-            $outputArray['msg'] = "Failed when updatin user data";
-
             $response->setSuccess(false);
             $response->setMsg("Failed when updatin user data");
         }
     }
 
-    $outputArray['tester123123123'] = $response;
-    return json_encode($outputArray);
+    return $response->jsonEnc();
 }
 
 
@@ -331,17 +307,17 @@ function createUser($localConn)
     $companyId = $data->companyId;
     $companyId = mysqli_real_escape_string($localConn, $companyId);
 
-    $outputArray = array();
-    $outputArray['success'] = false;
-    $outputArray['msg'] = 'ERROR';
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
 
     $sql = "SELECT * FROM users WHERE email='$email'";
     $query = mysqli_query($localConn, $sql);
     $rows = mysqli_num_rows($query);
     if ($rows >= 1) {
         // EMAIL EXIST IN DATABASE
-        $outputArray['success'] = false;
-        $outputArray['msg'] = "EMAIL_EXIST";
+        $response->setSuccess(false);
+        $response->setMsg('EMAIL_EXIST');
     }
     else {
         // EMAIL DOES NOT EXIST IN DATABASE
@@ -349,18 +325,16 @@ function createUser($localConn)
             VALUES ('$username', '$name', '$email', '$phone', false, $companyId, '$pass')";
 
         if ($localConn->query($sql) === TRUE) {
-            $outputArray['success'] = true;
-            $outputArray['msg'] = "Successfully created user";
+            $response->setSuccess(true);
+            $response->setMsg('Successfully created user');
         } else {
-            $outputArray['success'] = false;
-            $outputArray['msg'] = "Failed when creating user";
+            $response->setSuccess(false);
+            $response->setMsg('Failed when creating user');
         }
 
     }
 
-    
-
-    return json_encode($outputArray);
+    return $response->jsonEnc();
 }
 
 function checkUsername($localConn)

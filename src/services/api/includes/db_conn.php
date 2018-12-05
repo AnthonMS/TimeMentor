@@ -12,4 +12,8 @@ if ($connect->connect_error) {
     die("Connection failed... " + $connect->connect_error);
 }
 
+/*function getConnection() {
+    return $this->$connect;
+}*/
+
 //echo "Connection successful!";

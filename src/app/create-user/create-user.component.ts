@@ -120,7 +120,10 @@ export class CreateUserComponent implements OnInit {
       this.newUser['passwordRepeat'] = '';
     } else {
       this.data.createUser(this.newUser).subscribe((response) => {
-        if (response['success'] == true) {
+        //console.log(response);
+        //console.log(JSON.stringify(response));
+        var resp = JSON.parse(JSON.stringify(response));
+        if (resp.success == true) {
           this.disabled = true;
           this.error = "SUCCESS"
           this.newUser['name'] = '';

@@ -90,9 +90,10 @@ export class SuperuserPanelComponent implements OnInit {
     this.editing = false;
     this.users = [];
     this.data.getAllUsers(this.user['companyId']).subscribe((response) => {
-      //console.log(response['result']);
-      this.users = response['result'];
-      this.filteredUsers = response['result'];
+      //console.log(response);
+      let resp = JSON.parse(response);
+      this.users = resp.result;
+      this.filteredUsers = resp.result;
     });
   }
 
@@ -133,11 +134,12 @@ export class SuperuserPanelComponent implements OnInit {
     //console.log(user);
     this.data.updateUsers(user).subscribe((response) => {
       //console.log(response);
-      if (response['success'] == true) {
+      var resp = JSON.parse(response);
+      if (resp.success == true) {
         this.resetInputFields();
       }
       else {
-
+        
       }
     });
   }

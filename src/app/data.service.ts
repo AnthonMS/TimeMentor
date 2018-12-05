@@ -63,7 +63,7 @@ export class DataService {
     return this.http.post(
       this.API_URL + "user.php?function=getUsers",
       companyId,
-      { responseType: 'json' });
+      { responseType: 'text' });
   }
 
   getUserCount(companyId) {
@@ -77,7 +77,7 @@ export class DataService {
     return this.http.post(
       this.API_URL + "user.php?function=updateUsers",
       user,
-      { responseType: 'json' }
+      { responseType: 'text' }
     );
   }
 

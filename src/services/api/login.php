@@ -9,6 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 
 include("includes/db_conn.php");
 include("includes/response.php");
+include("includes/functions.php");
 
 switch($_SERVER['REQUEST_METHOD'])
 {
@@ -125,6 +126,7 @@ function getUser($localConn) {
     $response = new Response;
     $response->setSuccess(false);
     $response->setMsg("ERROR");
+    $response->tester123332 = testMethod();
 
     if ($result->num_rows > 0) 
     {

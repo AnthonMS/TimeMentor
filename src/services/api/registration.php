@@ -9,6 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 
 include("includes/db_conn.php");
 include("includes/response.php");
+include("includes/functions.php");
 
 switch($_SERVER['REQUEST_METHOD'])
 {
