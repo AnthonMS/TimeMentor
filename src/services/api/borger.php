@@ -17,6 +17,12 @@ switch($_SERVER['REQUEST_METHOD'])
         if ($function == "getBorgere") {
             echo getBorgere($connect);
         }
+        else if ($function == "deleteBorger") {
+            echo deleteBorger($connect);
+        }
+        else if ($function == "createBorger") {
+            echo createBorger($connect);
+        }
         break;
     case 'GET':
         echo "NO GET FUNCTION";
@@ -29,7 +35,7 @@ function getBorgere($localConn)
     $companyId = mysqli_real_escape_string($localConn, $companyId);
     //return $companyId;
 
-    $sql = "SELECT * FROM borgere WHERE companyId = $companyId";
+    $sql = "SELECT * FROM borgere WHERE companyId = $companyId AND active = true";
     $result = $localConn->query($sql);
 
     $outputArray = array();
@@ -68,4 +74,77 @@ function getBorgere($localConn)
     }
     return $response->jsonEnc();
     //return json_encode($outputArray);
+}
+
+function deleteBorger($localConn)
+{
+    $request_body = file_get_contents('php://input');
+    $data = json_decode($request_body);
+
+    $borgerId = $data->borgerId;
+    $companyId = $data->companyId;
+
+    $response = new Response;
+    $response->setSuccess(false);
+    /*
+    UPDATE table_name
+    SET column1=value, column2=value2,...
+    WHERE some_column=some_value 
+    */
+    $sql = "UPDATE borgere SET active = false WHERE id = ? AND companyId = ?";
+    $stmt = $localConn->prepare($sql);
+    if ($stmt === false) {
+        $response->setMsg("ERROR: did not prepare stmt");
+    }
+    $bind = $stmt->bind_param('ii', $borgerId, $companyId);
+    if ($bind === false) {
+        $response->setMsg("ERROR: did not bind params");
+    }
+    $exec = $stmt->execute();
+    if ($exec === false)
+    {
+        $response->setMsg("ERROR: " . $stmt->error);
+    } else {
+        $response->setSuccess(true);
+        $response->setMsg("SUCCESS: deleted borger");
+    }
+
+    $stmt->close();
+
+
+    return $response->jsonEnc();
+}
+
+function createBorger($localConn) 
+{
+    $request_body = file_get_contents('php://input');
+    $data = json_decode($request_body);
+    $name = $data->name;
+    $companyId = $data->companyId;
+
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
+    $sql = "INSERT INTO borgere (name, companyId) VALUES (?, ?)";
+    $stmt = $localConn->prepare($sql);
+    if ($stmt === false) {
+        $response->setMsg("ERROR: did not prepare stmt");
+    }
+    $bind = $stmt->bind_param('si', $name, $companyId);
+    if ($bind === false) {
+        $response->setMsg("ERROR: did not bind params");
+    }
+    $exec = $stmt->execute();
+    if ($exec === false)
+    {
+        $response->setMsg("ERROR: " . $stmt->error);
+    } else {
+        $response->setSuccess(true);
+        $response->setMsg("SUCCESS: created borger");
+    }
+
+    $stmt->close();
+
+    return $response->jsonEnc();
 }

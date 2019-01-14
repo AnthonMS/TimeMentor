@@ -43,6 +43,7 @@ export class RegisterTimeComponent implements OnInit {
     this._borgerSearchTerm = value;
     this.filterBorgerlist();
   }
+
   datePickerConfig: Partial<BsDatepickerConfig>;
   dateOfRegistration: Date = new Date();
   private responseMsg:string = "NONE";
@@ -70,16 +71,20 @@ export class RegisterTimeComponent implements OnInit {
       let resp = JSON.parse(response);
       resp.result[0].oldEmail = resp.result[0].email;
       this.user = resp.result[0];
-      this.data.getBorgere(this.user['companyId']).subscribe((response) => {
-        let respObj = JSON.parse(response);
-        if (respObj.success == true) {
-          this.borgere = respObj.result;
-          this.filteredBorgere = respObj.result;
-        } else {
-          this.borgere = [];
-          this.filteredBorgere = [];
-        }
-      });
+      this.getBorgere();
+    });
+  }
+
+  getBorgere() {
+    this.data.getBorgere(this.user['companyId']).subscribe((response) => {
+      let respObj = JSON.parse(response);
+      if (respObj.success == true) {
+        this.borgere = respObj.result;
+        this.filteredBorgere = respObj.result;
+      } else {
+        this.borgere = [];
+        this.filteredBorgere = [];
+      }
     });
   }
 
@@ -101,10 +106,54 @@ export class RegisterTimeComponent implements OnInit {
   }
 
   selectBorger(index) {
-    this.selectedBorger = this.borgere[index];
+    this.selectedBorger = this.filteredBorgere[index];
     this.comboboxMsg = this.selectedBorger['name'];
     this.registrationForm['companyId'] = this.borgere[index]['companyId'];
     this.registrationForm['borgerId'] = this.borgere[index]['id'];
+    this._borgerSearchTerm = "";
+    this.filterBorgerlist();
+  }
+
+  deleteBorger() {
+    console.log(this.selectedBorger);
+    // Call service to delete borger from database
+    let tmpObj = {
+      borgerId: this.selectedBorger['id'],
+      companyId: this.user['companyId']
+    };
+
+    this.data.deleteBorger(tmpObj).subscribe((response) => {
+      let respObj = JSON.parse(response);
+      if (respObj.success == true) {
+        // SUCCESS
+        this.getBorgere();
+        this.selectedBorger = null;
+        this.comboboxMsg = "Vælg borger";
+        this._borgerSearchTerm = "";
+      } else {
+        // FAILURE
+      }
+    });
+  }
+
+  createBorger() {
+    let tmpObj = {
+      companyId: this.user['companyId'],
+      name: this._borgerSearchTerm
+    };
+
+    this.data.createBorger(tmpObj).subscribe((response) => {
+      let respObj = JSON.parse(response);
+      if (respObj.success == true) {
+        // SUCCESS
+        this.getBorgere();
+        this.selectedBorger = null;
+        this.comboboxMsg = "Vælg borger";
+        this._borgerSearchTerm = "";
+      } else {
+        // FAILURE
+      }
+    });
   }
 
   selectTime(index) {

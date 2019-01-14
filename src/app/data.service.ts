@@ -100,6 +100,22 @@ export class DataService {
     );
   }
 
+  deleteBorger(ids) {
+    return this.http.post(
+      this.API_URL + "borger.php?function=deleteBorger",
+      ids,
+      { responseType: 'text' }
+    );
+  }
+
+  createBorger(borger) {
+    return this.http.post(
+      this.API_URL + "borger.php?function=createBorger",
+      borger,
+      { responseType: "text" }
+    );
+  }
+
   registerTime(registrationForm) {
     return this.http.post(
       this.API_URL + "registration.php?function=registerTime",

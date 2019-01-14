@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-superuser-panel',

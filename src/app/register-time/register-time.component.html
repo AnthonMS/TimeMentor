@@ -1,6 +1,30 @@
 <div class="container-fluid padding d-flex justify-content-center">
     <div class="row padding col-xs-14 col-sm-10 col-md-10 d-flex justify-content-center center-container">
 
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Slet borger</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Du er ved at slette en borger. Er du sikker?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="deleteBorger()" type="button" class="btn btn-danger" data-dismiss="modal">Ja</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nej</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="row welcome text-center">
             <div class="col-12">
                 <h1 class="display-4">Registrer tid</h1>
@@ -14,16 +38,34 @@
                     <div class="col-lg-6">
                         <label>Borger</label>
                         <div class="form-group">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="menu1" data-toggle="dropdown"
-                                    style="text-align: left; border: 1px solid lightgray; padding-left: 10px;" (click)="test()">{{ comboboxMsg }}
+                            <div class="dropdown" id="borgerDropdownDiv">
+                                <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="borgerDropdownBtn"
+                                    data-toggle="dropdown" style="text-align: left; border: 1px solid lightgray; padding-left: 10px;">
+                                    {{ comboboxMsg }}
                                     <span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto; max-width: 80%;">
+                                <ul class="dropdown-menu" id="borgerDropdownMenu" role="menu" aria-labelledby="menu1"
+                                    style="max-height: 350px; overflow: auto; max-width: 80%; min-width: 330px;">
                                     <li role="presentation">
-                                        <input #testTag id="borgerInput" name="borgerInput" type="text" class="form-control" placeholder="Søg/Opret" [(ngModel)]="borgerSearchTerm">
+
+                                        <div class="container-fluid" style="margin: 0px 0px 5px 0px; padding: 0; border: 0px solid black;">
+
+                                            
+                                            <input #testTag id="borgerInput" name="borgerInput" type="text" class="form-control"
+                                                placeholder="  Søg/Opret" [(ngModel)]="borgerSearchTerm">
+                                            <button (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i class="material-icons">person_add</i></button>
+                                                
+                                        </div>
+
                                     </li>
-                                    <li *ngFor="let borger of filteredBorgere; index as i" (click)="selectBorger(i)" role="presentation"
-                                        class="btn btn-custom">{{ borger.name }}</li>
+                                    <li *ngFor="let borger of filteredBorgere; index as i" (click)="selectBorger(i)"
+                                        role="presentation" class="btn btn-custom">{{ borger.name }}
+                                        <span style="float: right;">
+                                            <button class="btn btn-danger" style="margin-left: 4px; margin-top: 4px"
+                                                data-toggle="modal" data-target="#myModal">
+                                                <i class="material-icons">delete_outline</i>
+                                            </button>
+                                        </span>
+                                    </li>
                                     <li *ngFor="let borger of filteredBorgere" role="presentation" class="divider"></li>
                                 </ul>
                             </div>
@@ -49,8 +91,8 @@
                                     }}
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
-                                    <li *ngFor="let time of advancedIntervalArray[0]; index as i" role="presentation" class="btn btn-custom"
-                                        (click)="selectTime(i)">{{ time }}</li>
+                                    <li *ngFor="let time of advancedIntervalArray[0]; index as i" role="presentation"
+                                        class="btn btn-custom" (click)="selectTime(i)">{{ time }}</li>
                                     <li *ngFor="let time of advancedIntervalArray[0]" role="presentation" class="divider"></li>
                                 </ul>
                             </div>
@@ -67,8 +109,9 @@
                                     }}
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
-                                    <li *ngFor="let attendance of attendanceArray; index as i" role="presentation" class="btn btn-custom"
-                                        (click)="registrationForm.attendance=attendance">{{ attendance }}</li>
+                                    <li *ngFor="let attendance of attendanceArray; index as i" role="presentation"
+                                        class="btn btn-custom" (click)="registrationForm.attendance=attendance">{{
+                                        attendance }}</li>
                                     <li *ngFor="let attendance of attendanceArray" role="presentation" class="divider"></li>
                                 </ul>
                             </div>
@@ -76,8 +119,8 @@
                         <div class="form-group">
                             <label for="description">Kort beskrivelse</label>
                             <div class="input-group">
-                                <textarea (click)="test()" rows="5" cols="100" id="description" name="description" [(ngModel)]="registrationForm.description"
-                                    type="text" class="form-control"></textarea>
+                                <textarea (click)="test()" rows="5" cols="100" id="description" name="description"
+                                    [(ngModel)]="registrationForm.description" type="text" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="btn-group float-right mt-2" role="group">
@@ -91,15 +134,15 @@
                     </div>
                 </div>
                 <div class="row padding justify-content-center" style="margin: 20px 20px 5px 20px;">
-                        <div *ngIf="responseMsg=='SUCCESS'" class="alert alert-success">
-                          <strong>Success</strong> Du har nu registreret tid.
-                        </div>
-                        <div *ngIf="responseMsg=='MISSING_INPUT'" class="alert alert-danger">
-                          <strong>Fejl</strong> Mangler Input.
-                        </div>
-                        <div *ngIf="responseMsg=='DB_ERROR'" class="alert alert-danger">
-                          <strong>Fejl</strong> Der skete en fejl da vi prøvede at registrerer tiden. Prøv igen.
-                        </div>
+                    <div *ngIf="responseMsg=='SUCCESS'" class="alert alert-success">
+                        <strong>Success</strong> Du har nu registreret tid.
+                    </div>
+                    <div *ngIf="responseMsg=='MISSING_INPUT'" class="alert alert-danger">
+                        <strong>Fejl</strong> Mangler Input.
+                    </div>
+                    <div *ngIf="responseMsg=='DB_ERROR'" class="alert alert-danger">
+                        <strong>Fejl</strong> Der skete en fejl da vi prøvede at registrerer tiden. Prøv igen.
+                    </div>
                 </div>
             </div>
         </div>
