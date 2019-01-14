@@ -26,6 +26,15 @@ export class UserComponent implements OnInit {
     this.getUser();
   }
 
+  getUser() {
+    this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
+      //console.log(response);
+      let resp = JSON.parse(response);
+      resp.result[0].oldEmail = resp.result[0].email;
+      this.user = resp.result[0];
+    });
+  }
+
   updateUser() {
     //console.log(this.user);
     if (this.user['name'] === '' || this.user['email'] === '' || this.user['phone'] === '' ||
@@ -57,13 +66,6 @@ export class UserComponent implements OnInit {
     }
   }
 
-  getUser() {
-    this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
-      //console.log(response);
-      let resp = JSON.parse(response);
-      resp.result[0].oldEmail = resp.result[0].email;
-      this.user = resp.result[0];
-    });
-  }
+  
 
 }

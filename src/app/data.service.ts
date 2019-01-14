@@ -12,19 +12,6 @@ export class DataService {
 
   API_URL = 'http://localhost/TimeReg-App/TimeReg/src/services/api/';
 
-  /*getUsers() {
-    return this.http.get('http://jsonplaceholder.typicode.com/users');
-  }
-
-  getUser(userId) {
-    return this.http.get('http://jsonplaceholder.typicode.com/users/' + userId);
-  }
-
-  getPosts() {
-    return this.http.get('http://jsonplaceholder.typicode.com/posts');
-  }*/
-
-
   getUsersNew() {
     return this.http.get(this.API_URL + "test.php");
   }

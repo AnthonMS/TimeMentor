@@ -15,14 +15,16 @@
                         <label>Borger</label>
                         <div class="form-group">
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
-                                    style="text-align: left; border: 1px solid lightgray;">{{ comboboxMsg
-                                    }}
+                                <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="menu1" data-toggle="dropdown"
+                                    style="text-align: left; border: 1px solid lightgray; padding-left: 10px;" (click)="test()">{{ comboboxMsg }}
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto; max-width: 80%;">
-                                    <li *ngFor="let borger of borgere; index as i" (click)="selectBorger(i)" role="presentation"
+                                    <li role="presentation">
+                                        <input #testTag id="borgerInput" name="borgerInput" type="text" class="form-control" placeholder="Søg/Opret" [(ngModel)]="borgerSearchTerm">
+                                    </li>
+                                    <li *ngFor="let borger of filteredBorgere; index as i" (click)="selectBorger(i)" role="presentation"
                                         class="btn btn-custom">{{ borger.name }}</li>
-                                    <li *ngFor="let borger of borgere" role="presentation" class="divider"></li>
+                                    <li *ngFor="let borger of filteredBorgere" role="presentation" class="divider"></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,7 +76,7 @@
                         <div class="form-group">
                             <label for="description">Kort beskrivelse</label>
                             <div class="input-group">
-                                <textarea rows="5" cols="100" id="description" name="description" [(ngModel)]="registrationForm.description"
+                                <textarea (click)="test()" rows="5" cols="100" id="description" name="description" [(ngModel)]="registrationForm.description"
                                     type="text" class="form-control"></textarea>
                             </div>
                         </div>

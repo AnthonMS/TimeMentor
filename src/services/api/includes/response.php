@@ -30,7 +30,6 @@ class Response {
     function jsonEnc() {
         return json_encode($this);
     }
-
 }
 
 ?>

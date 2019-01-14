@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -11,8 +11,10 @@ import { ArrayType } from '@angular/compiler';
   styleUrls: ['./register-time.component.css']
 })
 export class RegisterTimeComponent implements OnInit {
+  @ViewChild('testTag') testTag: ElementRef;
   private user: Object;
   private borgere: Array<object> = [];
+  private filteredBorgere: Array<object> = [];
   private timeIntervals: Array<string> = ['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'];
 
@@ -28,11 +30,19 @@ export class RegisterTimeComponent implements OnInit {
     timeInterval: 'Tid brugt',
     tmpTime: 0,
     attendance: 'Vælg fremmøde',
-    userId: null,
+    userId: null
   };
 
   private selectedBorger: Object;
   private comboboxMsg: string = "Vælg borger";
+  private _borgerSearchTerm: string;
+  get borgerSearchTerm(): string {
+    return this._borgerSearchTerm;
+  }
+  set borgerSearchTerm(value: string) {
+    this._borgerSearchTerm = value;
+    this.filterBorgerlist();
+  }
   datePickerConfig: Partial<BsDatepickerConfig>;
   dateOfRegistration: Date = new Date();
   private responseMsg:string = "NONE";
@@ -64,11 +74,30 @@ export class RegisterTimeComponent implements OnInit {
         let respObj = JSON.parse(response);
         if (respObj.success == true) {
           this.borgere = respObj.result;
+          this.filteredBorgere = respObj.result;
         } else {
-          this.borgere = null;
+          this.borgere = [];
+          this.filteredBorgere = [];
         }
       });
     });
+  }
+
+  private filterBorgerlist() 
+  {
+    //console.log('filter borgere!');
+    var tempSearch = this._borgerSearchTerm.toLowerCase();
+    this.filteredBorgere = [];
+
+    for (var q = 0; q < this.borgere.length; q++) 
+    {
+      //console.log(this.borgere[q]['name'].toLowerCase());
+      var tempName = this.borgere[q]['name'].toLowerCase();
+
+      if (tempName.includes(tempSearch)) {
+        this.filteredBorgere.push(this.borgere[q]);
+      }
+    }
   }
 
   selectBorger(index) {
@@ -84,7 +113,8 @@ export class RegisterTimeComponent implements OnInit {
   }
 
   test() {
-
+    //console.log('test!');
+    //this.testTag.nativeElement.focus();
   }
 
   registerTime() {

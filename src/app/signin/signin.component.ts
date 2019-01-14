@@ -71,7 +71,7 @@ export class SigninComponent implements OnInit {
     user.token = token;
 
     this.data.checkToken(user).subscribe((response) => {
-      console.log(response);
+      //console.log(response);
       let resp = JSON.parse(response);
       if (resp.msg == "EXIST") {
         this.callTokenService(user);
