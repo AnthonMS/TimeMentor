@@ -39,9 +39,12 @@ body {
 .btn-custom {
     width: 100%; 
     text-align: left;
+    padding: 0;
+    margin: 0px 0px 0px 5px;
 }
 
 .btn-custom:hover {
     background-color: #b4b4b4;
     color: #181819;
+    
 }

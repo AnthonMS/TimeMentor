@@ -26,11 +26,21 @@
     background-color: transparent;
     border: 0px solid red;
 }
-.input-btn:hover {
+.input-btn:hover, #addPerson:hover {
     cursor: pointer;
-    background-color: rgb(230, 230, 230);
-    border-radius: 5px;
-    opacity: 0.5;
+    color: green;
+}
+.list-btn {
+    width: 18%;
+    height: 80%;
+    padding: 5px;
+    display: inline;
+    background-color: transparent;
+    border: 0px solid red;
+}
+.list-btn:hover, i:hover {
+    cursor: pointer;
+    color: red;
 }
 
 #borgerInput {

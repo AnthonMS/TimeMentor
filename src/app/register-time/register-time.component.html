@@ -52,7 +52,7 @@
                                             
                                             <input #testTag id="borgerInput" name="borgerInput" type="text" class="form-control"
                                                 placeholder="  Søg/Opret" [(ngModel)]="borgerSearchTerm">
-                                            <button (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i class="material-icons">person_add</i></button>
+                                            <button (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i class="material-icons" id="addPerson">person_add</i></button>
                                                 
                                         </div>
 
@@ -60,8 +60,7 @@
                                     <li *ngFor="let borger of filteredBorgere; index as i" (click)="selectBorger(i)"
                                         role="presentation" class="btn btn-custom">{{ borger.name }}
                                         <span style="float: right;">
-                                            <button class="btn btn-danger" style="margin-left: 4px; margin-top: 4px"
-                                                data-toggle="modal" data-target="#myModal">
+                                            <button class="list-btn" data-toggle="modal" data-target="#myModal">
                                                 <i class="material-icons">delete_outline</i>
                                             </button>
                                         </span>
