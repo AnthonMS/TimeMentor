@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,7 +58,8 @@ registerLocaleData(localeDa, 'da');
     BsDatepickerModule.forRoot(),
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger'
-    })
+    }),
+    DlDateTimePickerDateModule
   ],
   providers: [ CookieService, { provide: LOCALE_ID, useValue: 'da' } ],
   bootstrap: [AppComponent]

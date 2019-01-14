@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ArrayType } from '@angular/compiler';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-register-time',
@@ -18,7 +19,7 @@ export class RegisterTimeComponent implements OnInit {
   private timeIntervals: Array<string> = ['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'];
 
-  private advancedIntervalArray: Array<Array<any>> = [['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.', 
+  private advancedIntervalArray: Array<Array<any>> = [['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'], [15, 30, 45, 60, 75, 90, 105, 120, 150, 180]];
 
   private attendanceArray: Array<string> = ['Mødt', 'Udeblevet', 'Aflyst', 'Ferie'];
@@ -30,7 +31,9 @@ export class RegisterTimeComponent implements OnInit {
     timeInterval: 'Tid brugt',
     tmpTime: 0,
     attendance: 'Vælg fremmøde',
-    userId: null
+    userId: null,
+    startDate: null,
+    endDate: null
   };
 
   private selectedBorger: Object;
@@ -46,7 +49,7 @@ export class RegisterTimeComponent implements OnInit {
 
   datePickerConfig: Partial<BsDatepickerConfig>;
   dateOfRegistration: Date = new Date();
-  private responseMsg:string = "NONE";
+  private responseMsg: string = "NONE";
 
   constructor(private data: DataService,
     private cookieService: CookieService,
@@ -63,6 +66,7 @@ export class RegisterTimeComponent implements OnInit {
       this.router.navigate(['']);
     }
     this.getUser();
+    moment.locale('da');
   }
 
   getUser() {
@@ -88,14 +92,12 @@ export class RegisterTimeComponent implements OnInit {
     });
   }
 
-  private filterBorgerlist() 
-  {
+  private filterBorgerlist() {
     //console.log('filter borgere!');
     var tempSearch = this._borgerSearchTerm.toLowerCase();
     this.filteredBorgere = [];
 
-    for (var q = 0; q < this.borgere.length; q++) 
-    {
+    for (var q = 0; q < this.borgere.length; q++) {
       //console.log(this.borgere[q]['name'].toLowerCase());
       var tempName = this.borgere[q]['name'].toLowerCase();
 
@@ -162,7 +164,7 @@ export class RegisterTimeComponent implements OnInit {
   }
 
   test() {
-    //console.log('test!');
+    console.log(this.registrationForm);
     //this.testTag.nativeElement.focus();
   }
 
@@ -182,9 +184,16 @@ export class RegisterTimeComponent implements OnInit {
 
   checkInputFields() {
     let disableBtn = true;
-    let temp = this.dateOfRegistration instanceof Date;
     //console.log(this.dateOfRegistration);
-    if (this.comboboxMsg !== 'Vælg borger' && this.registrationForm['timeInterval'] !== 'Tid brugt' && temp) {
+    /*if (this.comboboxMsg !== 'Vælg borger' && this.registrationForm['timeInterval'] !== 'Tid brugt' && temp) {
+      disableBtn = false;
+    }*/
+    let tmp = this.dateOfRegistration instanceof Date;
+    let tmp1 = this.registrationForm['startDate'] instanceof Date;
+    let tmp2 = this.registrationForm['endDate'] instanceof Date;
+
+    if (this.comboboxMsg !== 'Vælg borger' && this.registrationForm['attendance'] !== 'Vælg fremmøde' && 
+    (tmp2 && tmp2 || tmp && this.registrationForm['timeInterval'] !== 'Tid brugt')) {
       disableBtn = false;
     }
     //console.log(disableBtn);

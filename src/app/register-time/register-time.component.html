@@ -36,8 +36,9 @@
             <div class="container-fluid padding">
                 <div class="row padding">
                     <div class="col-lg-6">
-                        <label>Borger</label>
+
                         <div class="form-group">
+                            <label>Borger</label>
                             <div class="dropdown" id="borgerDropdownDiv">
                                 <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="borgerDropdownBtn"
                                     data-toggle="dropdown" style="text-align: left; border: 1px solid lightgray; padding-left: 10px;">
@@ -49,11 +50,12 @@
 
                                         <div class="container-fluid" style="margin: 0px 0px 5px 0px; padding: 0; border: 0px solid black;">
 
-                                            
+
                                             <input #testTag id="borgerInput" name="borgerInput" type="text" class="form-control"
                                                 placeholder="  Søg/Opret" [(ngModel)]="borgerSearchTerm">
-                                            <button (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i class="material-icons" id="addPerson">person_add</i></button>
-                                                
+                                            <button (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i
+                                                    class="material-icons" id="addPerson">person_add</i></button>
+
                                         </div>
 
                                     </li>
@@ -70,35 +72,6 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group">
-                            <label for="dateOfRegistration">Dato</label>
-                            <div class="input-group">
-                                <input id="dateOfRegistration" name="dateOfRegistration" [(ngModel)]="registrationForm.date"
-                                    type="text" bsDatepicker [bsConfig]="datePickerConfig" class="form-control" #dp="bsDatepicker">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Vælg</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
-                                    style="text-align: left; border: 1px solid lightgray;">{{
-                                    registrationForm.timeInterval
-                                    }}
-                                    <span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
-                                    <li *ngFor="let time of advancedIntervalArray[0]; index as i" role="presentation"
-                                        class="btn btn-custom" (click)="selectTime(i)">{{ time }}</li>
-                                    <li *ngFor="let time of advancedIntervalArray[0]" role="presentation" class="divider"></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-6">
                         <div class="form-group">
                             <label for="description">Fremmøde</label>
                             <div class="dropdown">
@@ -122,6 +95,54 @@
                                     [(ngModel)]="registrationForm.description" type="text" class="form-control"></textarea>
                             </div>
                         </div>
+
+
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div *ngIf="true" class="form-group">
+                            <label for="dateOfRegistration">Dato</label>
+                            <div class="input-group">
+                                <input id="dateOfRegistration" name="dateOfRegistration" [(ngModel)]="registrationForm.date"
+                                    type="text" bsDatepicker [bsConfig]="datePickerConfig" class="form-control" #dp="bsDatepicker">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Vælg</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="true" class="form-group">
+                            <label for="dateOfRegistration">Tid brugt</label>
+
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
+                                    style="text-align: left; border: 1px solid lightgray;">{{
+                                    registrationForm.timeInterval
+                                    }}
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
+                                    <li *ngFor="let time of advancedIntervalArray[0]; index as i" role="presentation"
+                                        class="btn btn-custom" (click)="selectTime(i)">{{ time }}</li>
+                                    <li *ngFor="let time of advancedIntervalArray[0]" role="presentation" class="divider"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div *ngIf="false" class="form-group">
+                            <label for="startDate">Start tid</label>
+
+                            <dl-date-time-picker maxView="year" minView="minute" startView="day" minuteStep="5"
+                                [(ngModel)]="registrationForm.startDate" id="startDate">
+                            </dl-date-time-picker>
+
+                            <label for="endDate" (click)="test()">Slut tid</label>
+
+                            <dl-date-time-picker maxView="year" minView="minute" startView="day" minuteStep="5"
+                                [(ngModel)]="registrationForm.endDate" id="endDate">
+                            </dl-date-time-picker>
+                        </div>
+
                         <div class="btn-group float-right mt-2" role="group">
                             <button [disabled]="checkInputFields()" (click)="registerTime()" type="submit" class="btn btn-success btn-md">
                                 <div><i class="material-icons">save</i> Registrer</div>
