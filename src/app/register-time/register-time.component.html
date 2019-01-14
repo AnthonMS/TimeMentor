@@ -53,7 +53,7 @@
 
                                             <input #testTag id="borgerInput" name="borgerInput" type="text" class="form-control"
                                                 placeholder="  Søg/Opret" [(ngModel)]="borgerSearchTerm">
-                                            <button (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i
+                                            <button [disabled]="_borgerSearchTerm === ''" (click)="createBorger()" id="borgerAddBtn" class="input-btn"><i
                                                     class="material-icons" id="addPerson">person_add</i></button>
 
                                         </div>
@@ -75,8 +75,8 @@
                         <div class="form-group">
                             <label for="description">Fremmøde</label>
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
-                                    style="text-align: left; border: 1px solid lightgray;">{{
+                                <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="menu1"
+                                    data-toggle="dropdown" style="text-align: left; border: 1px solid lightgray;">{{
                                     registrationForm.attendance
                                     }}
                                     <span class="caret"></span></button>
@@ -116,8 +116,8 @@
                             <label for="dateOfRegistration">Tid brugt</label>
 
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle form-control" type="button" id="menu1" data-toggle="dropdown"
-                                    style="text-align: left; border: 1px solid lightgray;">{{
+                                <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="menu1"
+                                    data-toggle="dropdown" style="text-align: left; border: 1px solid lightgray;">{{
                                     registrationForm.timeInterval
                                     }}
                                     <span class="caret"></span></button>

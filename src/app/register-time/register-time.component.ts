@@ -38,7 +38,7 @@ export class RegisterTimeComponent implements OnInit {
 
   private selectedBorger: Object;
   private comboboxMsg: string = "Vælg borger";
-  private _borgerSearchTerm: string;
+  private _borgerSearchTerm: string = "";
   get borgerSearchTerm(): string {
     return this._borgerSearchTerm;
   }
