@@ -1,9 +1,16 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbName = "timeregdb";
+$db = parse_ini_file('db_info.ini');
+
+$servername = $db['servername'];
+$username = $db['username'];
+$password = $db['password'];
+$dbName = $db['dbname'];
+
+// $servername = "localhost";
+// $username = "root";
+// $password = "root";
+// $dbName = "timeregdb";
 
 $connect = new mysqli($servername, $username, $password, $dbName);
 //$connect->set_charset("utf8");
