@@ -1,5 +1,73 @@
-<h1 i18n="A description">Home</h1>
+<!--#####    WELCOME UI    ######-->
+<div *ngIf="!loggedIn" style="z-index: 50;">
 
-<p i18n="A site paragraph | description">home works!</p>
+    <div class="container-fluid padding d-flex justify-content-center" style="border: 0px solid black;">
+        <div class="row padding col-xs-14 col-sm-18 col-md-12 d-flex justify-content-center center-container" style="border: 0px solid black;">
 
-<p i18n>The Danish translation works! hurray for that!</p>
+            <div class="row welcome text-center" style="margin-top: 15px; border: 0px solid black; width: 100%;">
+                <div class="col-12">
+                    <h1 class="display-4">Welcome</h1>
+                </div>
+                <hr class="title-seperator" style="width: 90%;">
+            </div>
+
+            <!-- Image Slider -->
+            <div class="row welcome text-center" style="">
+                <div id="slides" class="carousel slide" data-ride="carousel" style="border: 0px solid black;">
+                    <ul class="carousel-indicators">
+                        <li data-target="#slides" data-slide-to="0" class="active"></li>
+                        <li data-target="#slides" data-slide-to="1"></li>
+                        <li data-target="#slides" data-slide-to="2"></li>
+                    </ul>
+                    <div class="text-center">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="assets/images/slider13.png" alt="">
+                                <div class="carousel-caption">
+                                    <div class="carousel-text-container">
+                                        <h1 class="display-2">Tidsregistrering</h1>
+                                        <h3>Nem og hurtig tidsregistrering for mentorer på farten.</h3>
+
+                                        <button type="button" class="btn btn-outline-light btn-lg" style="margin-right: 5px;">Se demo</button>
+                                        <button type="button" class="btn btn-primary btn-lg" style="margin-left: 5px;">Kom igang</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="assets/images/slider23.png" alt="">
+                                <div class="carousel-caption">
+                                    <div class="carousel-text-container">
+                                        <h1 class="display-2">Registrer tid</h1>
+                                        <h3>Nemt og hurtigt</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="assets/images/slider33.png" alt="">
+                                <div class="carousel-caption">
+                                    <div class="carousel-text-container">
+                                        <h1 class="display-2">Administrer brugere</h1>
+                                        <h3>Nemt at administrere brugere og se deres aktivitet</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!--#####    USER ACTIVITY UI    ######-->
+<div *ngIf="loggedIn" style="z-index: 50;">
+    <p>LOGGED IN!</p>
+
+</div>

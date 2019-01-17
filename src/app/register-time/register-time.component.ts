@@ -171,6 +171,9 @@ export class RegisterTimeComponent implements OnInit {
   registerTime() {
     this.registrationForm['userId'] = this.user['id'];
 
+    //this.registrationForm['date'].setHours(this.registrationForm['date'].getHours()+1);
+    //console.log(this.registrationForm);
+
     this.data.registerTime(this.registrationForm).subscribe((response) => {
       //console.log(response);
       let resp = JSON.parse(response);

@@ -31,8 +31,11 @@ function registerTime($localConn) {
     $userId = $data->userId;
     $companyId = $data->companyId;
     $borgerId = $data->borgerId;
-    
-    $date = new DateTime($data->date);
+
+    //$now = new \DateTime('now', new DateTimeZone('Europe/Bucharest'));
+    //date_default_timezone_set('UTC+1');
+    $date = new DateTime($data->date, new DateTimeZone('Europe/Copenhagen'));
+    $date->add(new DateInterval('PT1H'));
     $dateFormat = $date->format('Y-m-d H:i:s');
 
     $tmpTime = $data->tmpTime;
@@ -44,6 +47,7 @@ function registerTime($localConn) {
     $response->setSuccess(false);
     $response->setMsg("ERROR");
 
+    //$sql = "SET SESSION time_zone = '+1:00'; ";
     $sql = "INSERT INTO timeregistrations (userId, companyId, borgerId, date, timeInterval, attendance, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $localConn->prepare($sql);
     $stmt->bind_param('iiisiss', $userId, $companyId, $borgerId, $dateFormat, $tmpTime, $attendance, $description);
@@ -55,6 +59,8 @@ function registerTime($localConn) {
     } else {
         $response->setMsg("ERROR: did not save registration");
     }
+
+    //$response->setMsg(phpinfo());
 
     //$stmt->execute();
     $stmt->close();

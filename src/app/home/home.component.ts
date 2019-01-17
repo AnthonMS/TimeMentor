@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,18 +9,32 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  private loggedIn: Boolean = false;
+  private user: Object;
 
-  usersNew$: Array<object> = [];
-
-  constructor(private data: DataService) { }
+  constructor(private data: DataService,
+    private cookieService: CookieService,
+    private router: Router) { }
 
   ngOnInit() {
-    //this.getUsersNew();
+    //this.getUser();
+    if (!this.cookieService.check('token')) {
+      //this.router.navigate(['']);
+      this.loggedIn = false;
+    } else {
+      this.loggedIn = true;
+    }
+
+    console.log(this.loggedIn);
   }
 
-  getUsersNew() {
-    this.data.getUsersNew().subscribe((data: Array<object>) => {
-      this.usersNew$ = data;
+  getUser() {
+    this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
+      //console.log(response);
+      let resp = JSON.parse(response);
+      console.log(resp);
+      resp.result[0].oldEmail = resp.result[0].email;
+      this.user = resp.result[0];
     });
   }
 

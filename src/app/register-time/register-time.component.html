@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-lg-6">
 
-                        <div *ngIf="true" class="form-group">
+                        <div *ngIf="false" class="form-group">
                             <label for="dateOfRegistration">Dato</label>
                             <div class="input-group">
                                 <input id="dateOfRegistration" name="dateOfRegistration" [(ngModel)]="registrationForm.date"
@@ -110,6 +110,13 @@
                                     <button class="btn btn-primary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Vælg</button>
                                 </div>
                             </div>
+                        </div>
+
+                        <div *ngIf="true" class="form-group">
+                            <label for="startDate">Dato</label>
+                            <dl-date-time-picker maxView="year" minView="minute" startView="day" minuteStep="5"
+                                [(ngModel)]="registrationForm.date" id="startDate">
+                            </dl-date-time-picker>
                         </div>
 
                         <div *ngIf="true" class="form-group">
