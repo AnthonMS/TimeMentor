@@ -81,6 +81,9 @@
             <div *ngIf="error == 'EMAIL_EXIST'" class="alert alert-danger" style="margin-top: 20px;">
               <strong>Fejl!</strong> Email adressen eksistere allerede i vores system
             </div>
+            <div *ngIf="error == 'EMAIL_INVALID'" class="alert alert-danger" style="margin-top: 20px;">
+              <strong>Fejl!</strong> Email adressen skal være gyldig
+            </div>
             <div *ngIf="error == 'LICENSE_ERROR'" class="alert alert-danger" style="margin-top: 20px;">
               <strong>Fejl!</strong> Du har oprettet {{ user.numberOfUsers }} ud af {{ user.licenseQuantity }} brugere. Opgrader license for flere brugere.
             </div>

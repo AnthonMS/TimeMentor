@@ -23,6 +23,7 @@ export class CreateUserComponent implements OnInit {
   private error: String = "NONE";
   private disabled: boolean = true;
   nameText: String;
+  private emailRegExp: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   constructor(private data: DataService,
     private cookieService: CookieService,
@@ -91,6 +92,9 @@ export class CreateUserComponent implements OnInit {
 
       if (this.newUser['email'] !== this.newUser['emailRepeat']) {
         this.error = "EMAIL_WRONG";
+      }
+      else if (!this.emailRegExp.test(String(this.newUser['email']).toLowerCase())) {
+        this.error = "EMAIL_INVALID";
       }
       else if (this.newUser['password'] !== this.newUser['passwordRepeat']) {
         this.error = "PASS_WRONG";
