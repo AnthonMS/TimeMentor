@@ -25,6 +25,9 @@ export class SuperuserPanelComponent implements OnInit {
   private filteredUsers: Array<object> = [];
   private editing: boolean = false;
   private indexClicked = null;
+
+  private resultBoxMsg: String = "Resultater pr. side";
+  private resultAmountArray = [10, 25, 50, 100, 250, 500];
   
   private _searchTerm: string;
   get searchTerm(): string {
@@ -166,5 +169,10 @@ export class SuperuserPanelComponent implements OnInit {
 
   test() {
     //console.log(this.indexTest);
+  }
+
+  setResultAmount(index){
+    this.paginateConf.itemsPerPage = this.resultAmountArray[index];
+    this.resultBoxMsg = this.resultAmountArray[index].toString();
   }
 }

@@ -10,6 +10,18 @@
         <hr class="title-seperator" style="width: 95%;">
       </div>
 
+      <div class="container-fluid">
+        <div class="row d-flex bd-highlight">
+            <div class="p-2 flex-fill bd-highlight">
+                <div class="input-group">
+                  <input [(ngModel)]="searchTerm" name="searchInput" type="text" class="form-control place-inline" id="search-input"
+                    placeholder="Søg ved navn, mail eller telefon">
+                  <span class="btn btn-primary" type="button" (click)="test()">Søg</span>
+                </div>
+              </div>
+        </div>
+      </div>
+
       <div class="container-fluid padding d-flex justify-content-center">
 
 
@@ -56,14 +68,18 @@
 
           <div class="container-fluid">
             <div class="row d-flex bd-highlight">
-                <div class="p-2 flex-fill bd-highlight">
-                    <div class="input-group">
-                      <input [(ngModel)]="searchTerm" name="searchInput" type="text" class="form-control place-inline" id="search-input"
-                        placeholder="Søg ved navn, mail eller telefon">
-                      <span class="btn btn-primary" type="button" (click)="test()">Søg</span>
-                    </div>
-                  </div>
 
+              <div class="dropdown">
+                <button class="btn dropdown-toggle form-control dropdownInputBtn" type="button" id="menu1" data-toggle="dropdown"
+                  style="text-align: left; border: 1px solid lightgray;">{{ resultBoxMsg }}
+                  <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="max-height: 350px; overflow: auto;">
+                  <li *ngFor="let resultAmount of resultAmountArray; index as i" role="presentation" class="btn btn-custom" (click)="setResultAmount(i)">{{
+                    resultAmount }}</li>
+                  <li *ngFor="let resultAmount of resultAmountArray" role="presentation" class="divider"></li>
+                </ul>
+              </div>
+              
               <div>
                 <pagination-controls class="" (pageChange)="paginateConf.currentPage = $event" autoHide="true" responsive="true" previousLabel="Forige"
                   nextLabel="Næste"></pagination-controls>
