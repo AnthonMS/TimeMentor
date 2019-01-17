@@ -1,14 +1,74 @@
+<!--#####    USER ACTIVITY UI    ######-->
+<div *ngIf="loggedIn" style="z-index: 50;">
+
+
+    <div class="container-fluid padding d-flex justify-content-center" style="border: 0px solid black;">
+        <div class="row padding col-xs-14 col-sm-18 col-md-12 d-flex justify-content-center center-container" style="border: 0px solid black;">
+
+            <!-- Welcome Section -->
+            <div class="row welcome text-center" style="margin-top: 15px; margin-bottom: 15px; border: 0px solid black; width: 100%;">
+                <div class="col-12">
+                    <h1 class="display-4">Aktivitet</h1>
+                </div>
+                <hr class="title-seperator" style="width: 40%;">
+            </div>
+
+            <!-- Two Column Section -->
+            <div class="container-fluid padding">
+                <div class="row padding">
+                    <div class="col-lg-6" style="margin-top: 15px;">
+                        <h2>Seneste aktivitet</h2>
+                        <p>Her skal der være et table med X antal seneste tidsregistreringer</p>
+                    </div>
+                    <div class="col-lg-6" style="margin-top: 15px;">
+                        <h2>Diagram 1</h2>
+                        <p>Her skal der være et søjle diagram der viser hvor mange timer der er blevet registreret de
+                            sidste 7 hverdage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Section -->
+            <div class="container-fluid padding">
+                <div class="row padding">
+                    <div class="col-lg-6" style="margin-top: 15px;">
+                        <h2>Diagram 2</h2>
+                        <p>Her skal der være et diagramd er viser noget data jeg ikke ved hvad er...</p>
+                    </div>
+                    <div class="col-lg-6" style="margin-top: 15px;">
+                        <h2>Diagram 3</h2>
+                        <p>Her skal der være et diagramd er viser noget data jeg ikke ved hvad er...</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
 <!--#####    WELCOME UI    ######-->
 <div *ngIf="!loggedIn" style="z-index: 50;">
 
     <div class="container-fluid padding d-flex justify-content-center" style="border: 0px solid black;">
         <div class="row padding col-xs-14 col-sm-18 col-md-12 d-flex justify-content-center center-container" style="border: 0px solid black;">
 
-            <div class="row welcome text-center" style="margin-top: 15px; border: 0px solid black; width: 100%;">
+            <!-- Welcome Section -->
+            <div class="row welcome text-center" style="margin-top: 15px; margin-bottom: 15px; border: 0px solid black; width: 100%;">
                 <div class="col-12">
                     <h1 class="display-4">Velkommen</h1>
                 </div>
                 <hr class="title-seperator" style="width: 90%;">
+                <div class="col-12">
+                    <p class="lead">Velkommen til TimeMentor. TimeMentor er en web-applikation til mentorere der er
+                        ude og hjælpe borgere og har brug for en nem løsning til at holde styr på hvor lang
+                        tid der bliver brugt med hver borger.</p>
+                </div>
             </div>
 
             <!-- Image Slider -->
@@ -28,7 +88,8 @@
                                         <h1 class="display-2">Tidsregistrering</h1>
                                         <h3>Nem og hurtig tidsregistrering for mentorer på farten.</h3>
 
-                                        <button type="button" class="btn btn-outline-light btn-lg" style="margin-right: 5px;">Se
+                                        <button routerLink="features" type="button" class="btn btn-outline-light btn-lg"
+                                            style="margin-right: 5px;">Se
                                             demo</button>
                                         <button type="button" class="btn btn-primary btn-lg" style="margin-left: 5px;">Kom
                                             igang</button>
@@ -59,25 +120,13 @@
                 </div>
             </div>
 
-            <!-- Welcome Section -->
-            <div class="container-fluid padding" style="margin-top: 25px;">
-                <div class="row welcome text-center">
-                    <div class="col-12">
-                        <h1 class="display-4">Tidsregistrering med lethed.</h1>
-                    </div>
-                    <hr>
-                    <div class="col-12">
-                        <p class="lead">Velkommen til TimeMentor. TimeMentor er en web-applikation til mentorere der er
-                            ude og hjælpe borgere og har brug for en nem løsning til at holde styr på hvor lang
-                            tid der bliver brugt med hver borger.</p>
-                    </div>
-                </div>
-            </div>
+            <hr class="" style="width: 100%; border: 0px solid black;">
+
 
             <!-- Two Column Section -->
             <div class="container-fluid padding">
                 <div class="row padding">
-                    <div class="col-lg-6 carousel-text-container">
+                    <div class="col-lg-6 carousel-text-container" style="margin-top: 15px;">
                         <h2>Tidsregistrering med lethed.</h2>
                         <p>Velkommen til TimeMentor. TimeMentor er en web-applikation til mentorere der er
                             ude og hjælpe borgere og har brug for en nem løsning til at holde styr på hvor lang
@@ -88,9 +137,9 @@
                         <p>Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i
                             elektronisk typografi uden væsentlige ændringer.</p>
                         <br>
-                        <a href="#" class="btn btn-primary">Læs mere</a>
+                        <a routerLink="features" class="btn btn-primary">Læs mere</a>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="margin-top: 15px;">
                         <img src="assets/images/slider23.png" class="img-fluid">
                     </div>
                 </div>
@@ -101,11 +150,40 @@
             <!-- Two Column Section -->
             <div class="container-fluid padding">
                 <div class="row padding">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="margin-top: 15px;">
                         <img src="assets/images/slider33.png" class="img-fluid">
                     </div>
-                    <div class="col-lg-6 carousel-text-container">
+                    <div class="col-lg-6 carousel-text-container" style="margin-top: 15px;">
                         <h2>Administrering af brugere</h2>
+                        <p>Når i vil bruge TimeMentor i jeres firma, kommer der til at være en eller flere superbrugere
+                            som kan administrere alle mentorene i firmaet der er oprettet i systemet. Som superbruger
+                            kan man oprette nye brugere eller redigere og slette eksisterende.</p>
+                        <p>Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har
+                            været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig
+                            spalte for at trykke en bog til sammenligning af forskellige skrifttyper.</p>
+                        <br>
+                        <a routerLink="features" class="btn btn-primary">Læs mere</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Two Column Section -->
+            <div class="container-fluid padding">
+                <div class="row padding">
+                    <div class="col-lg-6" style="margin-top: 15px;">
+                        <h2>Noget mere intro text her</h2>
+                        <p>Når i vil bruge TimeMentor i jeres firma, kommer der til at være en eller flere superbrugere
+                            som kan administrere alle mentorene i firmaet der er oprettet i systemet. Som superbruger
+                            kan man oprette nye brugere eller redigere og slette eksisterende.</p>
+                        <p>Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har
+                            været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig
+                            spalte for at trykke en bog til sammenligning af forskellige skrifttyper.</p>
+                        <br>
+                        <a href="#" class="btn btn-primary">Læs mere</a>
+                    </div>
+                    <div class="col-lg-6" style="margin-top: 15px;">
+                        <h2>Noget mere intro text her</h2>
                         <p>Når i vil bruge TimeMentor i jeres firma, kommer der til at være en eller flere superbrugere
                             som kan administrere alle mentorene i firmaet der er oprettet i systemet. Som superbruger
                             kan man oprette nye brugere eller redigere og slette eksisterende.</p>
@@ -121,14 +199,5 @@
 
         </div>
     </div>
-
-</div>
-
-
-
-
-<!--#####    USER ACTIVITY UI    ######-->
-<div *ngIf="loggedIn" style="z-index: 50;">
-    <p>LOGGED IN!</p>
 
 </div>
