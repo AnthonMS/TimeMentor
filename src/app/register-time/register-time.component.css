@@ -44,6 +44,10 @@
     color: red;
 }
 
+#menu1, #borgerDropdownBtn {
+    padding-left: 10px;
+}
+
 #borgerInput {
     margin: 0px 0px 0px 5px;
     padding: 0;
