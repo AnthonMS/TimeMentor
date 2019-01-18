@@ -17,6 +17,8 @@ switch($_SERVER['REQUEST_METHOD'])
         $function = $_REQUEST['function'];
         if ($function == "registerTime") {
             echo registerTime($connect);
+        } else if ($function == "getMyRegistrations") {
+            echo getMyRegistrations($connect);
         }
         break;
     case 'GET':
@@ -63,6 +65,59 @@ function registerTime($localConn) {
     //$response->setMsg(phpinfo());
 
     //$stmt->execute();
+    $stmt->close();
+
+    return $response->jsonEnc();
+}
+
+function getMyRegistrations($localConn) {
+    $userId = file_get_contents('php://input');
+    $userId = mysqli_real_escape_string($localConn, $userId);
+
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
+    //$sql = "SET SESSION time_zone = '+1:00'; ";tr.id, tr.date, tr.create_date, tr.timeInterval, tr.attendance, b.name, b.id FROM timeregistrations AS tr
+    $sql = "SELECT tr.id, tr.date, tr.create_date, tr.timeInterval, tr.attendance, b.name, b.id FROM timeregistrations AS tr ";
+    $sql .= "LEFT JOIN borgere AS b ON tr.borgerId=b.id ";
+    $sql .= "WHERE userId = ?;";
+    $stmt = $localConn->prepare($sql);
+    $stmt->bind_param('i', $userId);
+
+    $res = [];
+
+    if ($stmt->execute()) 
+    {
+        $response->setSuccess(true);
+        $response->setMsg("SUCCESS: executed getMyRegistrations");
+
+        if ($stmt->bind_result($id, $date, $create_date, $time, $status, $borgerName, $borgerId)) {
+            while ($stmt->fetch()) {
+                $data = new stdClass();
+                
+                $data->id = $id;
+                $data->date = $date;
+                $data->create_date = $create_date;
+                $data->time = $time;
+                $data->status = utf8_encode($status);
+                $data->borgerName = utf8_encode($borgerName);
+                $data->borgerId = $borgerId;
+
+                $res[] = $data;
+            }           
+
+            $response->setResult($res);
+            $response->setMsg("SUCCESS: bound result");
+        } else {
+            $response->setResult($result2);
+            $response->setMsg("ERROR: DID NOT bind result");
+        }
+        
+    } else {
+        $response->setMsg("ERROR: failed execution of getMyRegistrations");
+    }
+
     $stmt->close();
 
     return $response->jsonEnc();

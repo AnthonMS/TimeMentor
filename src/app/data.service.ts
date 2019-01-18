@@ -124,4 +124,12 @@ export class DataService {
     );
   }
 
+  getMyRegistrations(userId) {
+    return this.http.post(
+      this.API_URL + "registration.php?function=getMyRegistrations",
+      userId,
+      { responseType: 'text' }
+    );
+  }
+
 }

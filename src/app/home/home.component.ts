@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   private loggedIn: Boolean = false;
   private user: Object;
+  private timeRegs: Array<object>;
 
   constructor(private data: DataService,
     private cookieService: CookieService,
@@ -23,18 +24,26 @@ export class HomeComponent implements OnInit {
       this.loggedIn = false;
     } else {
       this.loggedIn = true;
+      this.getUser();
     }
-
-    console.log(this.loggedIn);
   }
 
   getUser() {
     this.data.getUserWithToken(this.cookieService.get('token')).subscribe((response) => {
       //console.log(response);
       let resp = JSON.parse(response);
-      console.log(resp);
       resp.result[0].oldEmail = resp.result[0].email;
       this.user = resp.result[0];
+
+      this.getRegistrations();
+    });
+  }
+
+  getRegistrations() {
+    this.data.getMyRegistrations(this.user['id']).subscribe((response) => {
+      let resp = JSON.parse(response);
+      this.timeRegs = resp.result;
+      console.log(this.timeRegs);
     });
   }
 

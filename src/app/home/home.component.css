@@ -48,6 +48,26 @@
 }
 
 
+
+/*Small table*/
+.small-table {
+    width: 100%;
+}
+.small-thead {
+    background-color: rgba(212, 212, 212, 0.75);
+}
+.small-th {
+    padding: 5px;
+}
+.small-tbody {
+    padding: 10px;
+    font-size: 85%;
+}
+.small-td {
+    padding-top: 5px;
+    padding-left: 7px;
+}
+
 /*---Media Queries --*/
 @media (max-width: 992px) {
     .social a {

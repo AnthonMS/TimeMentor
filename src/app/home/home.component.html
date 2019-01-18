@@ -14,11 +14,34 @@
             </div>
 
             <!-- Two Column Section -->
-            <div class="container-fluid padding">
-                <div class="row padding">
+            <div class="container-fluid" style="margin-bottom: 0; padding-bottom: 0;">
+                <div class="row padding" style="margin-bottom: 0; padding-bottom: 0;">
                     <div class="col-lg-6" style="margin-top: 15px;">
                         <h2>Seneste aktivitet</h2>
-                        <p>Her skal der være et table med X antal seneste tidsregistreringer</p>
+
+                        <div class="table-responsive" style="max-height: 300px;">
+                            <table class="small-table table-striped table-light table-hover">
+                                <thead class="small-thead" (click)="resetInputFields()">
+                                    <tr class="small-tr">
+                                        <th class="small-th">Borger</th>
+                                        <th class="small-th">Tid</th>
+                                        <th class="small-th text-center">Status</th>
+                                        <th class="small-th">Dato</th>
+                                        <th class="small-th">Oprettet</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="small-tbody">
+                                    <tr class="small-tr" *ngFor="let timeReg of timeRegs">
+                                        <td class="small-td">{{ timeReg.borgerName }}</td>
+                                        <td class="small-td">{{ timeReg.time }}</td>
+                                        <td class="small-td">{{ timeReg.status }}</td>
+                                        <td class="small-td">{{ timeReg.date }}</td>
+                                        <td class="small-td">{{ timeReg.create_date }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                     <div class="col-lg-6" style="margin-top: 15px;">
                         <h2>Diagram 1</h2>
@@ -29,8 +52,8 @@
             </div>
 
             <!-- Two Column Section -->
-            <div class="container-fluid padding">
-                <div class="row padding">
+            <div class="container-fluid" style="margin-top: 0; padding-top: 0;">
+                <div class="row padding" style="margin-top: 0; padding-top: 0;">
                     <div class="col-lg-6" style="margin-top: 15px;">
                         <h2>Diagram 2</h2>
                         <p>Her skal der være et diagramd er viser noget data jeg ikke ved hvad er...</p>
