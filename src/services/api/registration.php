@@ -110,7 +110,6 @@ function getMyRegistrations($localConn) {
             $response->setResult($res);
             $response->setMsg("SUCCESS: bound result");
         } else {
-            $response->setResult($result2);
             $response->setMsg("ERROR: DID NOT bind result");
         }
         
