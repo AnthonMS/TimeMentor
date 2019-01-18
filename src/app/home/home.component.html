@@ -5,6 +5,30 @@
     <div class="container-fluid padding d-flex justify-content-center" style="border: 0px solid black;">
         <div class="row padding col-xs-14 col-sm-18 col-md-12 d-flex justify-content-center center-container" style="border: 0px solid black;">
 
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Senest aktivitet filter</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Her skal man kunne sætte filter på listen.
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuller</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <!-- Welcome Section -->
             <div class="row welcome text-center" style="margin-top: 15px; margin-bottom: 15px; border: 0px solid black; width: 100%;">
                 <div class="col-12">
@@ -17,7 +41,16 @@
             <div class="container-fluid" style="margin-bottom: 0; padding-bottom: 0;">
                 <div class="row padding" style="margin-bottom: 0; padding-bottom: 0;">
                     <div class="col-lg-6" style="margin-top: 15px;">
-                        <h2>Seneste aktivitet</h2>
+                        <div class="row">
+                            <h2>Seneste aktivitet</h2>
+
+                            <div class="absolute-right" style="margin-right: 10px;">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                    <div><i class="material-icons" style="color: black;">settings</i></div>
+                                </button>
+                            </div>
+                        </div>
+
 
                         <div class="table-responsive" style="max-height: 300px;">
                             <table class="small-table table-striped table-light table-hover">
@@ -31,7 +64,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="small-tbody">
-                                    <tr class="small-tr" *ngFor="let timeReg of timeRegs">
+                                    <tr class="small-tr" *ngFor="let timeReg of timeRegs index as i">
                                         <td class="small-td">{{ timeReg.borgerName }}</td>
                                         <td class="small-td">{{ timeReg.time }}</td>
                                         <td class="small-td">{{ timeReg.status }}</td>
