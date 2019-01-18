@@ -52,3 +52,16 @@ body {
     color: #181819;
     
 }
+
+.btn-default {
+    margin: 3px 5px 3px 5px;
+    background-color: rgba(128, 128, 128, 0.25);
+}
+
+.btn-default:hover {
+    background-color: rgba(158, 158, 158, 0.2);
+}
+.absolute-right {
+    position: absolute;
+    right: 0px;
+}
