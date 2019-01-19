@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +51,12 @@ export class HomeComponent implements OnInit {
       this.loggedIn = true;
       this.getUser();
     }
+  }
 
+  ngAfterViewInit() {
+    /*if (this.loggedIn) {
+      this.createColumnChart();
+    }*/
   }
 
   test() {
@@ -74,11 +80,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /* --- Latest activity --- */
   getRegistrations() {
     this.data.getMyRegistrations(this.user['id']).subscribe((response) => {
       let resp = JSON.parse(response);
       this.timeRegs = resp.result;
       this.filteredTimeRegs = resp.result;
+      this.createColumnChart();
+
       //console.log(this.timeRegs);
     });
   }
@@ -134,17 +143,7 @@ export class HomeComponent implements OnInit {
 
   private downloadExcel() {
     this.data.downloadMyActivity(this.filteredTimeRegs).subscribe((response) => {
-      //console.log(response);
-      this.downloadBlob(response);
-      //let resp = JSON.parse(response);
-      //this.timeRegs = resp.result;
-      //this.filteredTimeRegs = resp.result;
-      //var file = this.blobToFile(response, "test.xls");
-      //var file = new File([response], "test.xls");
-      //console.log(file);
-      //let url = window.URL.createObjectURL(response);
-      //let dlBtn = document.getElementById('downloadExcel');
-      
+      this.downloadBlob(response); // Response is a blob
     });
   }
 
@@ -171,6 +170,103 @@ export class HomeComponent implements OnInit {
 
     //Cast to a File() type
     return <File>theBlob;
+  }
+
+  /* --- Diagram 1 --- */
+  private createColumnChart() {
+    let today = new Date();
+    let day1 = new Date(today.getTime() - (6 * 24 * 60 * 60 * 1000));
+    let day2 = new Date(today.getTime() - (5 * 24 * 60 * 60 * 1000));
+    let day3 = new Date(today.getTime() - (4 * 24 * 60 * 60 * 1000));
+    let day4 = new Date(today.getTime() - (3 * 24 * 60 * 60 * 1000));
+    let day5 = new Date(today.getTime() - (2 * 24 * 60 * 60 * 1000));
+    let day6 = new Date(today.getTime() - (1 * 24 * 60 * 60 * 1000));
+    let chartLabels = [
+      this.createLabel(day1),
+      this.createLabel(day2),
+      this.createLabel(day3),
+      this.createLabel(day4),
+      this.createLabel(day5),
+      this.createLabel(day6),
+      this.createLabel(today)
+    ];
+    let bgColor = ['rgba(75, 192, 192, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(75, 192, 192, 0.3)'];
+    let bColor = ['rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)'];
+
+    var canvas = <HTMLCanvasElement>document.getElementById("chart");
+    var ctx = canvas.getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Timer registreret',
+          data: [
+            this.getHoursOnDate(day1), this.getHoursOnDate(day2), 
+            this.getHoursOnDate(day3), this.getHoursOnDate(day4), 
+            this.getHoursOnDate(day5), this.getHoursOnDate(day6), 
+            this.getHoursOnDate(today)
+          ],
+          backgroundColor: bgColor,
+          borderColor: bColor,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+
+  private createLabel(date: any): any {
+    let rtnVal:string = "Date Test";
+
+    if (date.getDay() == 0) {
+      rtnVal = "Søn. ";
+    } else if (date.getDay() == 1) {
+      rtnVal = "Man. ";
+    } else if (date.getDay() == 2) {
+      rtnVal = "Tir. ";
+    } else if (date.getDay() == 3) {
+      rtnVal = "Ons. ";
+    } else if (date.getDay() == 4) {
+      rtnVal = "Tor. ";
+    } else if (date.getDay() == 5) {
+      rtnVal = "Fre. ";
+    } else if (date.getDay() == 6) {
+      rtnVal = "Lør. ";
+    }
+    rtnVal += date.getDate() + "/" + date.getMonth()+1;
+
+    return rtnVal;
+  }
+
+  private getHoursOnDate(date: any): any {
+    let rtnVal:any = 0;
+    //console.log(new Date(this.timeRegs[0]['date']));
+
+    for (var i = 0; i < this.timeRegs.length; i++) {
+      let regDate:Date = new Date(this.timeRegs[i]['date']);
+      //console.log(regDate.getFullYear());
+      if (date.getFullYear() == regDate.getFullYear()) { // Check if year is the same
+        if (date.getMonth() == regDate.getMonth()) { // Check if month is the same
+          if (date.getDay() == regDate.getDay()) { // Check if day is the same
+
+            //console.log(this.timeRegs[i]['time']);
+            rtnVal += this.timeRegs[i]['time'];
+
+          }
+        }
+      }
+    }
+
+    return Math.floor(rtnVal / 60);
   }
 
 }
