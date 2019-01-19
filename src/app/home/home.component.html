@@ -16,10 +16,55 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <p>
-                                Her skal man kunne sætte filter på listen.
-                            </p>
+
+                            <div class="container-fluid">
+                                <div class="row d-flex bd-highlight">
+                                    <div class="p-2 flex-fill bd-highlight">
+                                        <div class="input-group">
+                                            <input [disabled]="advFilterExpanded" [(ngModel)]="activitySearch" name="searchInput"
+                                                type="text" class="form-control place-inline" id="search-input"
+                                                placeholder="Søg ved navn, status eller datoer">
+                                            <span class="btn btn-primary" type="button" (click)="test()">Søg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row d-flex bd-highlight">
+                                    <button (click)="expand()" [className]="advFilterExpanded ? 'expand-div-btn expanded-div' : 'expand-div-btn'"
+                                        data-toggle="collapse" data-target="#advSearchDiv">
+                                        <div id="expandArrow" [className]="advFilterExpanded ? 'arrow-up' : 'arrow-down'"></div>
+                                        Advanceret filter
+                                    </button>
+
+                                    <div id="advSearchDiv" class="collapse">
+                                        <div class="container-fluid padding">
+                                            <label for="startPeriod" style="margin-bottom: 0; margin-top: 5px;">Periode</label><br>
+                                            <div class="row text-center" style="">
+                                                <input [(ngModel)]="advFilter.periodStart" id="advPeriodStart" name="advPeriodStart"
+                                                    type="text" bsDatepicker [bsConfig]="datePickerConfig" class="form-control place-inline adv-input"
+                                                    #dp="bsDatepicker" placeholder="Periode start">
+                                                <input [(ngModel)]="advFilter.periodEnd" id="advPeriodEnd" name="advPeriodEnd"
+                                                    type="text" bsDatepicker [bsConfig]="datePickerConfig" class="form-control place-inline adv-input"
+                                                    #dp="bsDatepicker" placeholder="Periode slut">
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="absolute-right" style="margin-right: 10px;">
+                                                    <button [disabled]="checkAdvFilter()" (click)="advancedTimeRegFilter()"
+                                                        type="button" class="btn btn-primary">Filtrer</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Annuller</button>
@@ -45,7 +90,10 @@
                             <h2>Seneste aktivitet</h2>
 
                             <div class="absolute-right" style="margin-right: 10px;">
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
+                                <button id="downloadExcel" (click)="downloadExcel()" type="button" class="btn btn-excel btn-sm" title="Download listen herunder i et Excel Ark.">
+                                    <div><img class="custom-icons" src="../../assets/images/excel_icon_filled.png"></div>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" title="Filtrer eller søg i listen herunder.">
                                     <div><i class="material-icons" style="color: black;">settings</i></div>
                                 </button>
                             </div>
@@ -64,7 +112,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="small-tbody">
-                                    <tr class="small-tr" *ngFor="let timeReg of timeRegs index as i">
+                                    <tr class="small-tr" *ngFor="let timeReg of filteredTimeRegs index as i">
                                         <td class="small-td">{{ timeReg.borgerName }}</td>
                                         <td class="small-td">{{ timeReg.time }}</td>
                                         <td class="small-td">{{ timeReg.status }}</td>

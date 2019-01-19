@@ -31,14 +31,6 @@
     padding-bottom: 20px;
     padding-top: 15px;
 }
-.btn-primary {
-    background-color: #6648b1;
-    border: 1px solid #6648b1;
-}
-.btn-primary:hover {
-    background-color: #563d7c;
-    border: 1px solid #563d7c;
-}
 .jumbotron {
     padding: 1rem;
     border-radius: 0;
@@ -46,8 +38,6 @@
 .padding {
     padding-bottom: 2rem;
 }
-
-
 
 /*Small table*/
 .small-table {
@@ -67,6 +57,33 @@
     padding-top: 5px;
     padding-left: 7px;
 }
+
+
+
+.adv-input {
+    width: 45%;
+    margin: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*---Media Queries --*/
 @media (max-width: 992px) {

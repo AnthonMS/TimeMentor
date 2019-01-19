@@ -132,4 +132,12 @@ export class DataService {
     );
   }
 
+  downloadMyActivity(data) {
+    return this.http.post(
+      this.API_URL + "download.php?function=myActivity",
+      data,
+      { responseType: 'blob' }
+    );
+  }
+
 }

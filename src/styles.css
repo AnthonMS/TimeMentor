@@ -40,6 +40,70 @@ body {
     display: block;
 }
 
+.absolute-right {
+    position: absolute;
+    right: 0px;
+}
+
+/* Collapsible container */
+.expand-div-btn {
+    width: 100%;
+    text-align: left;
+    outline: none;
+
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: transparent;
+}
+.expand-div-btn:hover {
+    background-color: rgba(196, 196, 196, 0.25);
+    cursor: pointer;
+}
+.expand-div-btn:focus {
+    outline: 0;
+}
+.expanded-div {
+    border-bottom: none !important;
+}
+
+/* Arrow div */
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+
+    border-bottom: 10px solid rgba(128, 128, 128, 0.25);
+    display: inline-block;
+}  
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+
+    border-top: 10px solid rgba(128, 128, 128, 0.25);
+    display: inline-block;
+}
+.arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid transparent;
+
+    border-left: 60px solid green;
+}
+.arrow-left {
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent; 
+
+    border-right:10px solid blue; 
+}
+
+/* Button styling */
 .btn-custom {
     width: 100%; 
     text-align: left;
@@ -57,11 +121,23 @@ body {
     margin: 3px 5px 3px 5px;
     background-color: rgba(128, 128, 128, 0.25);
 }
-
 .btn-default:hover {
     background-color: rgba(158, 158, 158, 0.2);
 }
-.absolute-right {
-    position: absolute;
-    right: 0px;
+
+.custom-icons {
+    height: 29px;
+    width: 28px;
+}
+
+.btn-excel {
+    background-color: rgba(29, 112, 68, 0.8);
+}
+.btn-excel:hover {
+    background-color: rgba(29, 112, 68, 0.55)
+}
+
+.btn:focus {
+    outline: none !important;
+    box-shadow: none;
 }
