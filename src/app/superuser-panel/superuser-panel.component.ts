@@ -20,7 +20,7 @@ export class SuperuserPanelComponent implements OnInit {
     currentPage: 1
   };
 
-  private user: Object;
+  public user: Object;
   private users: Array<object> = [];
   private filteredUsers: Array<object> = [];
   private editing: boolean = false;

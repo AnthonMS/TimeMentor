@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   homeTab:Boolean = false; registerTab:Boolean = false; userTab:Boolean = false;
   supportTab:Boolean = false; signInTab:Boolean = false; adminTab:Boolean = false;
-  private currentTab:String = "";
+  public currentTab:String = "";
 
   public loginCookieExist: Boolean = false;
 

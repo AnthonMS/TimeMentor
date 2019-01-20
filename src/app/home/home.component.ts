@@ -11,7 +11,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private loggedIn: Boolean = false;
+  public loggedIn: Boolean = false;
   private advFilterExpanded: Boolean = false;
   private user: Object;
   private timeRegs: Array<object>;

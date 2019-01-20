@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private user: Object;
+  public user: Object;
   private disabled: boolean = true;
   private responseMsg = '';
   private updateError = false;

@@ -15,15 +15,15 @@ export class RegisterTimeComponent implements OnInit {
   @ViewChild('testTag') testTag: ElementRef;
   private user: Object;
   private borgere: Array<object> = [];
-  private filteredBorgere: Array<object> = [];
+  public filteredBorgere: Array<object> = [];
   private timeIntervals: Array<string> = ['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'];
 
   private advancedIntervalArray: Array<Array<any>> = [['15 Min.', '30 Min.', '45 Min.', '1 Time', '1 Time, 15 Min.',
     '1 Time, 30 Min.', '1 Time, 45 Min.', '2 Timer', '2 Timer, 30 Min.', '3+ Timer'], [15, 30, 45, 60, 75, 90, 105, 120, 150, 180]];
 
-  private attendanceArray: Array<string> = ['Mødt', 'Udeblevet', 'Aflyst', 'Ferie'];
-  private registrationForm: Object = {
+  public attendanceArray: Array<string> = ['Mødt', 'Udeblevet', 'Aflyst', 'Ferie'];
+  public registrationForm: Object = {
     borgerId: null,
     companyId: null,
     date: new Date(),
@@ -37,8 +37,8 @@ export class RegisterTimeComponent implements OnInit {
   };
 
   private selectedBorger: Object;
-  private comboboxMsg: string = "Vælg borger";
-  private _borgerSearchTerm: string = "";
+  public comboboxMsg: string = "Vælg borger";
+  public _borgerSearchTerm: string = "";
   get borgerSearchTerm(): string {
     return this._borgerSearchTerm;
   }
@@ -49,7 +49,7 @@ export class RegisterTimeComponent implements OnInit {
 
   datePickerConfig: Partial<BsDatepickerConfig>;
   dateOfRegistration: Date = new Date();
-  private responseMsg: string = "NONE";
+  public responseMsg: string = "NONE";
 
   constructor(private data: DataService,
     private cookieService: CookieService,

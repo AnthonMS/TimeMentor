@@ -12,7 +12,7 @@ import { sha256 } from 'js-sha256';
 })
 export class CreateUserComponent implements OnInit {
   private user: Object;
-  private newUser: Object = {
+  public newUser: Object = {
     name: '',
     email: '',
     emailRepeat: '',
@@ -20,8 +20,8 @@ export class CreateUserComponent implements OnInit {
     password: '',
     passwordRepeat: ''
   };
-  private error: String = "NONE";
-  private disabled: boolean = true;
+  public error: String = "NONE";
+  public disabled: boolean = true;
   nameText: String;
   private emailRegExp: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
