@@ -16,15 +16,15 @@
             <form>
               <div class="form-group">
                 <label for="email-details">Navn</label>
-                <input [(ngModel)]="newUser.name" name="nameInput" type="text" class="form-control" id="name-create"
+                <input [(ngModel)]="newUser['name']" name="nameInput" type="text" class="form-control" id="name-create"
                   placeholder="Navn" (ngModelChange)="checkInputFields($event)">
               </div>
 
               <div class="form-group">
                 <label for="email-details">Email</label>
-                <input [(ngModel)]="newUser.email" name="mailInput" type="email" class="form-control" id="email-create"
+                <input [(ngModel)]="newUser['email']" name="mailInput" type="email" class="form-control" id="email-create"
                   placeholder="Email" (ngModelChange)="checkInputFields($event)">
-                <input [(ngModel)]="newUser.emailRepeat" name="mailReInput" type="email" class="form-control" id="emailRe-create"
+                <input [(ngModel)]="newUser['emailRepeat']" name="mailReInput" type="email" class="form-control" id="emailRe-create"
                   placeholder="Gentag Email" style="margin-top: 5px;" (ngModelChange)="checkInputFields($event)">
               </div>
             </form>
@@ -35,7 +35,7 @@
             <form>
               <div class="form-group">
                 <label for="email-details">Telefon</label>
-                <input [(ngModel)]="newUser.phone" name="phoneInput" type="text" class="form-control" id="phone-create"
+                <input [(ngModel)]="newUser['phone']" name="phoneInput" type="text" class="form-control" id="phone-create"
                   placeholder="Telefon" (ngModelChange)="checkInputFields($event)">
               </div>
               <div class="form-group">
@@ -45,9 +45,9 @@
                     <label for="someSwitchOptionDefault" class="label-default"></label>
                   </div>
                 </label>
-                <input [(ngModel)]="newUser.password" name="passInput" type="password" class="form-control" id="pass-create"
+                <input [(ngModel)]="newUser['password']" name="passInput" type="password" class="form-control" id="pass-create"
                   placeholder="Kodeord" (ngModelChange)="checkInputFields($event)">
-                <input [(ngModel)]="newUser.passwordRepeat" name="passReInput" type="password" class="form-control" id="passRe-create"
+                <input [(ngModel)]="newUser['passwordRepeat']" name="passReInput" type="password" class="form-control" id="passRe-create"
                   placeholder="Gentag Kodeord" style="margin-top: 5px;" (ngModelChange)="checkInputFields($event)">
               </div>
 

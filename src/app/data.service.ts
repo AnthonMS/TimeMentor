@@ -10,7 +10,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  API_URL = 'http://localhost/TimeReg-App/TimeReg/src/services/api/';
+  API_URL = 'http://localhost:8082/api/';
 
   getUsersNew() {
     return this.http.get(this.API_URL + "test.php");
