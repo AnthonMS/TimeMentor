@@ -37,7 +37,7 @@ function downloadExcel($localConn) {
     //$test = [];
 
 
-    $dataTable = "
+/*     $dataTable = "
         <table class='table' bordered='1'>
             <tr>
                 <th>borgerName</th>
@@ -58,12 +58,36 @@ function downloadExcel($localConn) {
             </tr>
         ";
     }
-
+    
     $dataTable .= "
         </table>
     ";
     header("Content-Type: application/xls");
-    header("Content-Disposition: attachment; filename=download.xls");
+    header("Content-Disposition: attachment; filename=download.xls"); */
+
+    $dataTable = file_get_contents('XML/doctop.xml');
+
+    $dataTable .= '<Row>';
+    $dataTable .= '<Cell ss:StyleID="s65"><Data ss:Type="String">Borger</Data></Cell>';
+    $dataTable .= '<Cell ss:StyleID="s65"><Data ss:Type="String">Registrering</Data></Cell>';
+    $dataTable .= '<Cell ss:StyleID="s65"><Data ss:Type="String">Dato</Data></Cell>';
+    $dataTable .= '<Cell ss:StyleID="s65"><Data ss:Type="String">Status</Data></Cell>';
+    $dataTable .= '</Row>';
+    foreach ($data as $item) {
+        //$test[] = $item; 
+        // $item->borgerName | $item->create_date | $item->date | $item->status
+        $dataTable .= '<Row>';
+        $dataTable .= "<Cell><Data ss:Type='String'>{$item->borgerName}</Data></Cell>";
+        $dataTable .= "<Cell ss:StyleID='s62'><Data ss:Type='String'>{$item->create_date}</Data></Cell>";
+        $dataTable .= "<Cell ss:StyleID='s62'><Data ss:Type='String'>{$item->date}</Data></Cell>";
+        $dataTable .= "<Cell><Data ss:Type='String'>{$item->status}</Data></Cell>";
+        $dataTable .= '</Row>';
+    }
+
+    $dataTable .= file_get_contents('XML/docbottom.xml');
+
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=download.xml");
     return $dataTable;
 
     //return $response->jsonEnc();

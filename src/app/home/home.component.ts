@@ -149,7 +149,7 @@ export class HomeComponent implements OnInit {
 
   private downloadBlob(data: any): void {
     const blob: Blob = data;
-    const fileName: string = "test-file.xls";
+    const fileName: string = "test-file.xml";
     const objectUrl: string = URL.createObjectURL(blob);
     const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
 
