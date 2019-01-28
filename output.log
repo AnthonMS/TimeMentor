@@ -1,0 +1,40 @@
+Starting up http-server, serving dist/TimeReg/
+Available on:
+  http://192.168.0.108:80
+  http://192.168.56.1:80
+  http://127.0.0.1:80
+Hit CTRL-C to stop the server
+[Sun Jan 20 2019 16:22:24 GMT+0100 (Rom, normaltid)] "GET /open-iconic.woff" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:10 GMT+0100 (Rom, normaltid)] "GET /" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:10 GMT+0100 (Rom, normaltid)] "GET /runtime.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:10 GMT+0100 (Rom, normaltid)] "GET /polyfills.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:10 GMT+0100 (Rom, normaltid)] "GET /styles.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:10 GMT+0100 (Rom, normaltid)] "GET /vendor.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:10 GMT+0100 (Rom, normaltid)] "GET /main.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:11 GMT+0100 (Rom, normaltid)] "GET /assets/images/logo_12.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:11 GMT+0100 (Rom, normaltid)] "GET /assets/images/slider13.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:11 GMT+0100 (Rom, normaltid)] "GET /assets/images/slider23.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:11 GMT+0100 (Rom, normaltid)] "GET /assets/images/slider33.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:13 GMT+0100 (Rom, normaltid)] "GET /runtime.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:13 GMT+0100 (Rom, normaltid)] "GET /polyfills.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:13 GMT+0100 (Rom, normaltid)] "GET /styles.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:13 GMT+0100 (Rom, normaltid)] "GET /vendor.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:13 GMT+0100 (Rom, normaltid)] "GET /main.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 17:24:18 GMT+0100 (Rom, normaltid)] "GET /assets/images/excel_icon_filled.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:11 GMT+0100 (Rom, normaltid)] "GET /" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:11 GMT+0100 (Rom, normaltid)] "GET /runtime.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:11 GMT+0100 (Rom, normaltid)] "GET /polyfills.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:11 GMT+0100 (Rom, normaltid)] "GET /styles.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:11 GMT+0100 (Rom, normaltid)] "GET /vendor.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:11 GMT+0100 (Rom, normaltid)] "GET /main.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /runtime.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /polyfills.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /styles.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /vendor.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /main.js.map" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /assets/images/logo_12.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:12 GMT+0100 (Rom, normaltid)] "GET /assets/images/excel_icon_filled.png" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:13 GMT+0100 (Rom, normaltid)] "GET /favicon.ico" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+[Sun Jan 20 2019 22:17:15 GMT+0100 (Rom, normaltid)] "GET /open-iconic.woff" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+http-server stopped.
+Terminate batch job (Y/N)? 

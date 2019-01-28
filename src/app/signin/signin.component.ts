@@ -16,8 +16,8 @@ export class SigninComponent implements OnInit {
   public loginSuccess = false;
   public loginUnsuccess = false;
 
-  public email = "Anthon@Steiness.info";
-  public pass = "EasyPass12";
+  public email = "";
+  public pass = "";
 
   constructor(private data: DataService, private cookieService: CookieService, private router: Router) { }
 
