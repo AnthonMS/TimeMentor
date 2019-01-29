@@ -39,9 +39,14 @@ export class SigninComponent implements OnInit {
       if (resp.success) {
         me.loginSuccess = true;
         me.loginUnsuccess = false;
-
+        console.log(resp.msg);
+        if (resp.msg == 'SUCCESS_TOKEN') { // if true, user already has token assigned in database, so use this one as cookie
+          this.cookieService.set('token', resp.result);
+        } else { // If false, create new token for user and save it in the database
+          me.checkLoginCookie(user);
+        }
         // Checks whether or not there is a cookie on the users browser with user token.
-        me.checkLoginCookie(user);
+        
 
         setTimeout(function () {
           me.router.navigate(['']);

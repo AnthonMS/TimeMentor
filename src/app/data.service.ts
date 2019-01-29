@@ -46,6 +46,14 @@ export class DataService {
       { responseType: 'text' });
   }
 
+  changePassword(user) {
+    return this.http.post(
+      this.API_URL + "user.php?function=changePassword",
+      user,
+      { responseType: "text" }
+    );
+  }
+
   getAllUsers(companyId) {
     return this.http.post(
       this.API_URL + "user.php?function=getUsers",

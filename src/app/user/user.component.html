@@ -31,6 +31,34 @@
           </div>
 
           <div class="form-group">
+            <button (click)="expand()" [className]="chgPassExpanded ? 'expand-div-btn expanded-div' : 'expand-div-btn'"
+              data-toggle="collapse" data-target="#chgPassDiv">
+              <div id="expandArrow" [className]="chgPassExpanded ? 'arrow-up' : 'arrow-down'"></div>
+              Skift kode
+            </button>
+
+            <div id="chgPassDiv" class="collapse">
+
+              <div class="form-group" style="margin-bottom: 0px;">
+                <input [(ngModel)]="currPass" [disabled]="false" name="passInput" type="password" class="form-control" id="pass-details"
+                  placeholder="Nuværende kode" style="margin: 10px 0 5px 0;">
+                <input [(ngModel)]="newPass" [disabled]="false" name="newPassInput" type="password" class="form-control" id="newPass-details"
+                  placeholder="Ny kode" style="margin: 5px 0 0 0;">
+              </div>
+
+              <div class="form-group" style="height: 40px;">
+                <div class="btn-group float-right mt-2" role="group">
+                  <button (click)="changePassword()" type="submit" class="btn btn-danger btn-md">
+                    <div><i class="material-icons">edit</i> Skift</div>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
             <label for="email-details">Virksomhed</label>
             <hr align="left" class="title-seperator" style="width: 25%;">
             <input [disabled]="disabled || !user.superuser" [(ngModel)]="user.companyName" name="companyNameInput" type="text"
@@ -54,13 +82,13 @@
 
         <div class="form-group">
           <div class="btn-group float-left mt-2" role="group">
-            <button [disabled]="disabled" (click)="updateUser()" type="submit" class="btn btn-primary btn-md">
+            <button [disabled]="disabled || chgPassExpanded" (click)="updateUser()" type="submit" class="btn btn-primary btn-md">
               <i class="material-icons">edit</i> Opdater
             </button>
           </div>
 
           <div class="btn-group float-right mt-2" role="group">
-            <button (click)="disabled = !disabled;" type="submit" class="btn btn-danger btn-md">
+            <button [disabled]="chgPassExpanded" (click)="disabled = !disabled;" type="submit" class="btn btn-danger btn-md">
               <div *ngIf="disabled"><i class="material-icons">edit</i> Rediger</div>
               <div *ngIf="!disabled"><i class="material-icons">edit</i> Annuller</div>
             </button>
