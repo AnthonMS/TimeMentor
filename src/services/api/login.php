@@ -62,8 +62,15 @@ function login($localConn)
             $password == $dbPassword) {
             // SETTING THE COOKIETOKEN
             $returnStr = "SUCCESS";
+            //$response->testToken = $dataArray['password'];
             $response->setSuccess(true);
-            $response->setMsg("SUCCESS: Login correct");
+            if (!empty($dataArray['token'])) {
+                $response->setMsg("SUCCESS_TOKEN");
+                $response->setResult($dataArray['token']);
+            } else {
+                $response->setMsg("SUCCESS_NO_TOKEN");
+            }
+            
         } else {
             //echo "Incorrect login, " . $email , ", " . $password;
             $returnStr = "ERROR";

@@ -35,6 +35,9 @@ switch($_SERVER['REQUEST_METHOD'])
         else if ($function == "checkUsername") {
             echo checkUsername($connect);
         }
+        else if ($function == "changePassword") {
+          echo changePassword($connect);
+        }
         //echo getUsers($connect);
         break;
     case 'GET':
@@ -43,7 +46,7 @@ switch($_SERVER['REQUEST_METHOD'])
         break;
 }
 
-function getUserCount($localConn) 
+function getUserCount($localConn)
 {
     $companyId = file_get_contents('php://input');
     $companyId = mysqli_real_escape_string($localConn, $companyId);
@@ -75,7 +78,7 @@ function getUsers($localConn) {
     $response->setSuccess(false);
     $response->setMsg("ERROR");
 
-    if ($result->num_rows > 0) 
+    if ($result->num_rows > 0)
     {
         $dataArray = array();
         while ($row = $result->fetch_assoc())
@@ -101,12 +104,58 @@ function getUsers($localConn) {
         $response->setSuccess(true);
         $response->setMsg("Success");
         $response->setResult($dataArray);
-    } 
+    }
     else
     {
         $response->setMsg("The result of the request is 0");
     }
 
+    return $response->jsonEnc();
+}
+
+function changePassword($localConn)
+{
+    $request_body = file_get_contents('php://input');
+    $data = json_decode($request_body);
+
+    $currPass = $data->currPass;
+    $newPass = $data->newPass;
+
+    $response = new Response;
+    $response->setSuccess(false);
+    $response->setMsg("ERROR");
+
+    //$sql = "UPDATE users SET ";
+
+    
+    $sql = "SELECT * FROM users WHERE id='$data->id'";
+    $query = mysqli_query($localConn, $sql);
+    $rows = mysqli_num_rows($query);
+
+    if ($rows == 1) {
+        $dataArray = mysqli_fetch_array($query);
+
+        $response->dbPass = $dataArray['password'];
+        $response->sendPass = $data->currPass;
+        if ($data->currPass == $dataArray['password']) {
+            $newSql = "UPDATE users SET password='$data->newPass', token='$data->newToken' WHERE id='$data->id'";
+            if ($localConn->query($newSql) === TRUE) {
+                $response->setSuccess(true);
+                $response->setMsg("Successfully updated user password");
+            } else {
+                $response->setSuccess(false);
+                $response->setMsg("Failed when updating user password");
+            }
+        } else {
+            $response->setSuccess(false);
+            $response->setMsg("WRONG PASSWORD");
+        }
+
+    }
+    
+
+    //$response->setResult($dataArray);
+    
     return $response->jsonEnc();
 }
 
@@ -152,16 +201,16 @@ function updateUser($localConn) {
     if ($rows >= 1) {
         $dataArray = mysqli_fetch_array($query);
         // It checks here if it is the same user editing.
-        if ($dataArray['token'] == $token) 
+        if ($dataArray['token'] == $token)
         {
             if ($superUser) {
-                $sql = "UPDATE users, companies SET users.name = '$name', users.email = '$email', users.phone = '$phone', 
-                        companies.name = '$companyName', companies.email = '$companyEmail', companies.phone = '$companyPhone' 
+                $sql = "UPDATE users, companies SET users.name = '$name', users.email = '$email', users.phone = '$phone',
+                        companies.name = '$companyName', companies.email = '$companyEmail', companies.phone = '$companyPhone'
                         WHERE users.token = '$token' AND companies.id = $companyId;";
             } else {
                 $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone' WHERE token = '$token';";
             }
-    
+
             if ($localConn->query($sql) === TRUE) {
                 $response->setSuccess(true);
                 $response->setMsg("Successfully updated user data");
@@ -175,11 +224,11 @@ function updateUser($localConn) {
             $response->setMsg("EMAIL EXIST");
         }
 
-        
+
     } else {
         if ($superUser) {
-            $sql = "UPDATE users, companies SET users.name = '$name', users.email = '$email', users.phone = '$phone', 
-                    companies.name = '$companyName', companies.email = '$companyEmail', companies.phone = '$companyPhone' 
+            $sql = "UPDATE users, companies SET users.name = '$name', users.email = '$email', users.phone = '$phone',
+                    companies.name = '$companyName', companies.email = '$companyEmail', companies.phone = '$companyPhone'
                     WHERE users.token = '$token' AND companies.id = $companyId;";
         } else {
             $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone' WHERE token = '$token';";
@@ -199,7 +248,7 @@ function updateUser($localConn) {
     return $response->jsonEnc();
 }
 
-function updateUsers($localConn) 
+function updateUsers($localConn)
 {
     $request_body = file_get_contents('php://input');
     $data = json_decode($request_body);
@@ -225,7 +274,7 @@ function updateUsers($localConn)
 
     if ($rows >= 1) {
         $dataArray = mysqli_fetch_array($query);
-        if ($dataArray['id'] == $id) 
+        if ($dataArray['id'] == $id)
         {
             //$outputArray['test'] = "SAME ID";
             $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone' WHERE id = $id;";
@@ -242,7 +291,7 @@ function updateUsers($localConn)
             $response->setSuccess(false);
             $response->setMsg("EMAIL EXIST");
         }
-    } else 
+    } else
     {
         $sql = "UPDATE users SET name = '$name', email = '$email', phone = '$phone' WHERE id = $id;";
         if ($localConn->query($sql) === TRUE) {
@@ -258,7 +307,7 @@ function updateUsers($localConn)
 }
 
 
-function deleteUser($localConn) 
+function deleteUser($localConn)
 {
     $request_body = file_get_contents('php://input');
     $data = json_decode($request_body);
@@ -321,7 +370,7 @@ function createUser($localConn)
     }
     else {
         // EMAIL DOES NOT EXIST IN DATABASE
-        $sql = "INSERT INTO users (username, name, email, phone, superuser, companyId, password) 
+        $sql = "INSERT INTO users (username, name, email, phone, superuser, companyId, password)
             VALUES ('$username', '$name', '$email', '$phone', false, $companyId, '$pass')";
 
         if ($localConn->query($sql) === TRUE) {
